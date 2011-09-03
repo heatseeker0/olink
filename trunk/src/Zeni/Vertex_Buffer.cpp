@@ -1,48 +1,36 @@
-/* This file is part of the Zenipex Library.
-* Copyleft (C) 2011 Mitchell Keith Bloch a.k.a. bazald
-*
-* The Zenipex Library is free software; you can redistribute it and/or 
-* modify it under the terms of the GNU General Public License as 
-* published by the Free Software Foundation; either version 2 of the 
-* License, or (at your option) any later version.
-*
-* The Zenipex Library is distributed in the hope that it will be useful, 
-* but WITHOUT ANY WARRANTY; without even the implied warranty of 
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License 
-* along with the Zenipex Library; if not, write to the Free Software 
-* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 
-* 02110-1301 USA.
-*
-* As a special exception, you may use this file as part of a free software
-* library without restriction.  Specifically, if other files instantiate
-* templates or use macros or inline functions from this file, or you compile
-* this file and link it with other files to produce an executable, this
-* file does not by itself cause the resulting executable to be covered by
-* the GNU General Public License.  This exception does not however
-* invalidate any other reasons why the executable file might be covered by
-* the GNU General Public License.
-*/
+/* This file is part of the Zenipex Library (zenilib).
+ * Copyright (C) 2011 Mitchell Keith Bloch (bazald).
+ *
+ * zenilib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * zenilib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with zenilib.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#include <Zeni/Vertex_Buffer.hxx>
-
-#include <Zeni/Color.hxx>
-#include <Zeni/Coordinate.hxx>
-#include <Zeni/Material.hxx>
-#include <Zeni/Quadrilateral.hxx>
-#include <Zeni/Renderable.hxx>
-#include <Zeni/Vector3f.hxx>
-#include <Zeni/Vertex2f.hxx>
-#include <Zeni/Vertex3f.hxx>
-#include <Zeni/Video_GL.hxx>
+#include <zeni_graphics.h>
 
 #include <algorithm>
 
+#ifndef DISABLE_DX9
+#include <d3dx9.h>
+#endif
+
 //#define DISABLE_VBO
 
-#include <Zeni/Global.h>
+#include <Zeni/Define.h>
+
+#if defined(_DEBUG) && defined(_WINDOWS)
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#endif
 
 namespace Zeni {
 
@@ -68,19 +56,29 @@ namespace Zeni {
     m_prerendered(false),
     m_macrorenderer(new Vertex_Buffer_Macrorenderer)
   {
+    Video &vr = get_Video();
+
     get_vbos().insert(this);
+
+    vr.lend_pre_uninit(&g_uninit);
   }
 
   template <typename VERTEX>
-  static void clear_triangles(std::vector<Triangle<VERTEX> *> &triangles) {
-    for(unsigned int i = 0; i < triangles.size(); ++i)
-      delete triangles[i];
+  static void clear_triangles(std::vector<Triangle<VERTEX> *> &triangles, std::vector<Vertex_Buffer::Vertex_Buffer_Range *> &descriptors) {
+    for(typename std::vector<Triangle<VERTEX> *>::iterator it = triangles.begin(), iend = triangles.end(); it != iend; ++it)
+      delete *it;
     triangles.clear();
+
+    for(std::vector<Vertex_Buffer::Vertex_Buffer_Range *>::iterator it = descriptors.begin(), iend = descriptors.end(); it != iend; ++it)
+      delete *it;
+    descriptors.clear();
   }
 
   Vertex_Buffer::~Vertex_Buffer() {
-    clear_triangles(m_triangles_cm);
-    clear_triangles(m_triangles_t);
+    Video::remove_pre_uninit(&g_uninit);
+
+    clear_triangles(m_triangles_cm, m_descriptors_cm);
+    clear_triangles(m_triangles_t, m_descriptors_t);
 
     delete m_renderer;
     delete m_macrorenderer;
@@ -88,12 +86,12 @@ namespace Zeni {
     get_vbos().erase(this);
   }
 
-  void Vertex_Buffer::give_triangle(Triangle<Vertex2f_Color> * const &triangle) {
+  void Vertex_Buffer::give_Triangle(Triangle<Vertex2f_Color> * const &triangle) {
     safe_ptr<Renderable> to_delete(triangle);
-    fax_triangle(triangle);
+    fax_Triangle(triangle);
   }
 
-  void Vertex_Buffer::fax_triangle(const Triangle<Vertex2f_Color> * const &triangle) {
+  void Vertex_Buffer::fax_Triangle(const Triangle<Vertex2f_Color> * const &triangle) {
     if(!triangle)
       throw VBuf_Init_Failure();
 
@@ -101,20 +99,20 @@ namespace Zeni {
     const Vertex2f_Color &v1 = triangle->b;
     const Vertex2f_Color &v2 = triangle->c;
 
-    Triangle<Vertex3f_Color> facsimile(Vertex3f_Color(v0.position, v0.get_color()),
-                                       Vertex3f_Color(v1.position, v1.get_color()),
-                                       Vertex3f_Color(v2.position, v2.get_color()));
+    Triangle<Vertex3f_Color> facsimile(Vertex3f_Color(v0.position, v0.get_Color()),
+                                       Vertex3f_Color(v1.position, v1.get_Color()),
+                                       Vertex3f_Color(v2.position, v2.get_Color()));
     facsimile.fax_Material(triangle->get_Material());
 
-    fax_triangle(&facsimile);
+    fax_Triangle(&facsimile);
   }
 
-  void Vertex_Buffer::give_triangle(Triangle<Vertex2f_Texture> * const &triangle) {
+  void Vertex_Buffer::give_Triangle(Triangle<Vertex2f_Texture> * const &triangle) {
     safe_ptr<Renderable> to_delete(triangle);
-    fax_triangle(triangle);
+    fax_Triangle(triangle);
   }
 
-  void Vertex_Buffer::fax_triangle(const Triangle<Vertex2f_Texture> * const &triangle) {
+  void Vertex_Buffer::fax_Triangle(const Triangle<Vertex2f_Texture> * const &triangle) {
     if(!triangle)
       throw VBuf_Init_Failure();
 
@@ -127,41 +125,41 @@ namespace Zeni {
                                          Vertex3f_Texture(v2.position, v2.texture_coordinate));
     facsimile.fax_Material(triangle->get_Material());
 
-    fax_triangle(&facsimile);
+    fax_Triangle(&facsimile);
   }
 
-  void Vertex_Buffer::give_quadrilateral(Quadrilateral<Vertex2f_Color> * const &quad) {
+  void Vertex_Buffer::give_Quadrilateral(Quadrilateral<Vertex2f_Color> * const &quad) {
     safe_ptr<Renderable> to_delete(quad);
-    fax_quadrilateral(quad);
+    fax_Quadrilateral(quad);
   }
   
-  void Vertex_Buffer::fax_quadrilateral(const Quadrilateral<Vertex2f_Color> * const &quad) {
+  void Vertex_Buffer::fax_Quadrilateral(const Quadrilateral<Vertex2f_Color> * const &quad) {
     if(!quad)
       throw VBuf_Init_Failure();
 
-    give_triangle(quad->get_duplicate_t0());
-    give_triangle(quad->get_duplicate_t1());
+    give_Triangle(quad->get_duplicate_t0());
+    give_Triangle(quad->get_duplicate_t1());
   }
 
-  void Vertex_Buffer::give_quadrilateral(Quadrilateral<Vertex2f_Texture> * const &quad) {
+  void Vertex_Buffer::give_Quadrilateral(Quadrilateral<Vertex2f_Texture> * const &quad) {
     safe_ptr<Renderable> to_delete(quad);
-    fax_quadrilateral(quad);
+    fax_Quadrilateral(quad);
   }
   
-  void Vertex_Buffer::fax_quadrilateral(const Quadrilateral<Vertex2f_Texture> * const &quad) {
+  void Vertex_Buffer::fax_Quadrilateral(const Quadrilateral<Vertex2f_Texture> * const &quad) {
     if(!quad)
       throw VBuf_Init_Failure();
 
-    give_triangle(quad->get_duplicate_t0());
-    give_triangle(quad->get_duplicate_t1());
+    give_Triangle(quad->get_duplicate_t0());
+    give_Triangle(quad->get_duplicate_t1());
   }
 
-  void Vertex_Buffer::give_triangle(Triangle<Vertex3f_Color> * const &triangle) {
+  void Vertex_Buffer::give_Triangle(Triangle<Vertex3f_Color> * const &triangle) {
     if(!triangle)
       throw VBuf_Init_Failure();
 
     if(!triangle->get_Material() ||
-       triangle->get_Material()->get_texture().empty())
+       triangle->get_Material()->get_Texture().empty())
     {
       m_triangles_cm.push_back(triangle);
       unprerender();
@@ -172,19 +170,19 @@ namespace Zeni {
     }
   }
 
-  void Vertex_Buffer::fax_triangle(const Triangle<Vertex3f_Color> * const &triangle) {
+  void Vertex_Buffer::fax_Triangle(const Triangle<Vertex3f_Color> * const &triangle) {
     if(!triangle)
       throw VBuf_Init_Failure();
 
-    give_triangle(triangle->get_duplicate());
+    give_Triangle(triangle->get_duplicate());
   }
 
-  void Vertex_Buffer::give_triangle(Triangle<Vertex3f_Texture> * const &triangle) {
+  void Vertex_Buffer::give_Triangle(Triangle<Vertex3f_Texture> * const &triangle) {
     if(!triangle)
       throw VBuf_Init_Failure();
 
     if(triangle->get_Material() &&
-       !triangle->get_Material()->get_texture().empty())
+       !triangle->get_Material()->get_Texture().empty())
     {
       m_triangles_t.push_back(triangle);
       unprerender();
@@ -195,37 +193,37 @@ namespace Zeni {
     }
   }
 
-  void Vertex_Buffer::fax_triangle(const Triangle<Vertex3f_Texture> * const &triangle) {
+  void Vertex_Buffer::fax_Triangle(const Triangle<Vertex3f_Texture> * const &triangle) {
     if(!triangle)
       throw VBuf_Init_Failure();
 
-    give_triangle(triangle->get_duplicate());
+    give_Triangle(triangle->get_duplicate());
   }
 
-  void Vertex_Buffer::give_quadrilateral(Quadrilateral<Vertex3f_Color> * const &quad) {
+  void Vertex_Buffer::give_Quadrilateral(Quadrilateral<Vertex3f_Color> * const &quad) {
     safe_ptr<Renderable> to_delete(quad);
-    fax_quadrilateral(quad);
+    fax_Quadrilateral(quad);
   }
   
-  void Vertex_Buffer::fax_quadrilateral(const Quadrilateral<Vertex3f_Color> * const &quad) {
+  void Vertex_Buffer::fax_Quadrilateral(const Quadrilateral<Vertex3f_Color> * const &quad) {
     if(!quad)
       throw VBuf_Init_Failure();
 
-    give_triangle(quad->get_duplicate_t0());
-    give_triangle(quad->get_duplicate_t1());
+    give_Triangle(quad->get_duplicate_t0());
+    give_Triangle(quad->get_duplicate_t1());
   }
 
-  void Vertex_Buffer::give_quadrilateral(Quadrilateral<Vertex3f_Texture> * const &quad) {
+  void Vertex_Buffer::give_Quadrilateral(Quadrilateral<Vertex3f_Texture> * const &quad) {
     safe_ptr<Renderable> to_delete(quad);
-    fax_quadrilateral(quad);
+    fax_Quadrilateral(quad);
   }
   
-  void Vertex_Buffer::fax_quadrilateral(const Quadrilateral<Vertex3f_Texture> * const &quad) {
+  void Vertex_Buffer::fax_Quadrilateral(const Quadrilateral<Vertex3f_Texture> * const &quad) {
     if(!quad)
       throw VBuf_Init_Failure();
 
-    give_triangle(quad->get_duplicate_t0());
-    give_triangle(quad->get_duplicate_t1());
+    give_Triangle(quad->get_duplicate_t0());
+    give_Triangle(quad->get_duplicate_t1());
   }
 
   void Vertex_Buffer::debug_render() {
@@ -292,12 +290,12 @@ namespace Zeni {
         if(material_ptr)
           material_ptr->clear_optimization();
         for(size_t i = 1; i < triangles.size(); ++i) {
-          Material * material_ptr2 = new Material(*triangles[i]->get_Material());
+          Material material2(*triangles[i]->get_Material());
 
-          if(material_ptr ? *material_ptr == *material_ptr2 : !material_ptr2)
+          if(material_ptr && *material_ptr == material2)
             ++descriptors[last]->num_elements;
           else {
-            material_ptr2 = new Material(*material_ptr2);
+            Material * const material_ptr2 = new Material(material2);
             descriptors.push_back(new Vertex_Buffer::Vertex_Buffer_Range(material_ptr2, triangles_done+i, 1u));
             ++last;
             material_ptr2->clear_optimization();
@@ -435,8 +433,8 @@ namespace Zeni {
   }
 
   std::set<Vertex_Buffer *> & Vertex_Buffer::get_vbos() {
-    static std::set<Vertex_Buffer *> * vbos = new std::set<Vertex_Buffer *>;
-    return *vbos;
+    static std::set<Vertex_Buffer *> vbos;
+    return vbos;
   }
 
 #ifndef DISABLE_GL
@@ -447,11 +445,6 @@ namespace Zeni {
     memset(m_vbuf, 0, sizeof(VBO_GL) * 6);
 
     Video_GL &vgl = dynamic_cast<Video_GL &>(get_Video());
-
-#ifndef DISABLE_VBO
-    if(!m_pglDeleteBuffersARB)
-      m_pglDeleteBuffersARB = vgl.get_pglDeleteBuffersARB();
-#endif
 
     const size_t v_size = vertex_size();
     const size_t n_size = normal_size();
@@ -487,7 +480,7 @@ namespace Zeni {
           buffered_colors += c_size;
         }
 
-      if(m_pglDeleteBuffersARB) {
+      if(buffers_supported(vgl)) {
         for(int i = 0; i < 3; ++i)
           vgl.pglGenBuffersARB(1, &m_vbuf[i].vbo);
 
@@ -530,7 +523,7 @@ namespace Zeni {
           buffered_texels += t_size;
         }
 
-      if(m_pglDeleteBuffersARB) {
+      if(buffers_supported(vgl)) {
         for(int i = 3; i < 6; ++i)
           vgl.pglGenBuffersARB(1, &m_vbuf[i].vbo);
 
@@ -554,10 +547,12 @@ namespace Zeni {
   }
 
   Vertex_Buffer_Renderer_GL::~Vertex_Buffer_Renderer_GL() {
-    if(m_pglDeleteBuffersARB) {
+    Video_GL &vgl = dynamic_cast<Video_GL &>(get_Video());
+
+    if(buffers_supported(vgl)) {
       for(int i = 0; i < 6; ++i)
         if(m_vbuf[i].vbo)
-          m_pglDeleteBuffersARB(1, &m_vbuf[i].vbo);
+          vgl.pglDeleteBuffersARB(1, &m_vbuf[i].vbo);
     }
     else {
       for(int i = 0; i < 6; ++i)
@@ -587,36 +582,37 @@ namespace Zeni {
 
     for(size_t i = 0u; i < descriptors.size(); ++i) {
       if(descriptors[i]->material.get())
-        vr.set_material(*descriptors[i]->material);
+        vr.set_Material(*descriptors[i]->material);
 
       VB_Renderer_GL microrenderer(int(3u*descriptors[i]->start), int(3u*descriptors[i]->num_elements));
       macrorenderer(microrenderer);
 
       if(descriptors[i]->material.get())
-        vr.unset_material(*descriptors[i]->material);
+        vr.unset_Material(*descriptors[i]->material);
     }
   }
 
   void Vertex_Buffer_Renderer_GL::render() {
     Video_GL &vgl = dynamic_cast<Video_GL &>(get_Video());
+    const bool buffers_supported_ = buffers_supported(vgl);
 
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_NORMAL_ARRAY);
 
     if(!m_vbo.m_descriptors_cm.empty()) {
       // Bind Vertex Buffer
-      if(m_pglDeleteBuffersARB)
+      if(buffers_supported_)
         vgl.pglBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vbuf[0].vbo);
-      glVertexPointer(3, GL_FLOAT, 0, m_pglDeleteBuffersARB ? 0 : m_vbuf[0].alt);
+      glVertexPointer(3, GL_FLOAT, 0, buffers_supported_ ? 0 : m_vbuf[0].alt);
       // Bind Normal Buffer
-      if(m_pglDeleteBuffersARB)
+      if(buffers_supported_)
         vgl.pglBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vbuf[1].vbo);
-      glNormalPointer(GL_FLOAT, 0, m_pglDeleteBuffersARB ? 0 : m_vbuf[1].alt);
+      glNormalPointer(GL_FLOAT, 0, buffers_supported_ ? 0 : m_vbuf[1].alt);
       // Bind Color Buffer
       glEnableClientState(GL_COLOR_ARRAY);
-      if(m_pglDeleteBuffersARB)
+      if(buffers_supported_)
         vgl.pglBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vbuf[2].vbo);
-      glColorPointer(4, GL_UNSIGNED_BYTE, 0, m_pglDeleteBuffersARB ? 0 : m_vbuf[2].alt);
+      glColorPointer(4, GL_UNSIGNED_BYTE, 0, buffers_supported_ ? 0 : m_vbuf[2].alt);
 
       Zeni::render(*m_vbo.m_macrorenderer, m_vbo.m_descriptors_cm);
 
@@ -625,18 +621,18 @@ namespace Zeni {
 
     if(!m_vbo.m_descriptors_t.empty()) {
       // Bind Vertex Buffer
-      if(m_pglDeleteBuffersARB)
+      if(buffers_supported_)
         vgl.pglBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vbuf[3].vbo);
-      glVertexPointer(3, GL_FLOAT, 0, m_pglDeleteBuffersARB ? 0 : m_vbuf[3].alt);
+      glVertexPointer(3, GL_FLOAT, 0, buffers_supported_ ? 0 : m_vbuf[3].alt);
       // Bind Normal Buffer
-      if(m_pglDeleteBuffersARB)
+      if(buffers_supported_)
         vgl.pglBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vbuf[4].vbo);
-      glNormalPointer(GL_FLOAT, 0, m_pglDeleteBuffersARB ? 0 : m_vbuf[4].alt);
+      glNormalPointer(GL_FLOAT, 0, buffers_supported_ ? 0 : m_vbuf[4].alt);
       // Bind Texel Buffer
       glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-      if(m_pglDeleteBuffersARB)
+      if(buffers_supported_)
         vgl.pglBindBufferARB(GL_ARRAY_BUFFER_ARB, m_vbuf[5].vbo);
-      glTexCoordPointer(2, GL_FLOAT, 0, m_pglDeleteBuffersARB ? 0 : m_vbuf[5].alt);
+      glTexCoordPointer(2, GL_FLOAT, 0, buffers_supported_ ? 0 : m_vbuf[5].alt);
 
       Zeni::render(*m_vbo.m_macrorenderer, m_vbo.m_descriptors_t);
 
@@ -646,8 +642,6 @@ namespace Zeni {
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_NORMAL_ARRAY);
   }
-  
-  PFNGLDELETEBUFFERSARBPROC Vertex_Buffer_Renderer_GL::m_pglDeleteBuffersARB = 0;
 
 #endif
 #ifndef DISABLE_DX9
@@ -818,7 +812,7 @@ namespace Zeni {
 
       for(unsigned int i = 0; i < descriptors.size(); ++i) {
         if(descriptors[i]->material.get())
-          vdx.set_material(*descriptors[i]->material);
+          vdx.set_Material(*descriptors[i]->material);
 
         if(vbo_dx9.is_vbo) {
           VB_Renderer_DX9VBO microrenderer(vdx, 3u * descriptors[i]->start, descriptors[i]->num_elements);
@@ -830,7 +824,7 @@ namespace Zeni {
         }
 
         if(descriptors[i]->material.get())
-          vdx.unset_material(*descriptors[i]->material);
+          vdx.unset_Material(*descriptors[i]->material);
       }
   }
 
@@ -853,6 +847,8 @@ namespace Zeni {
 
 #endif
 
+  Vertex_Buffer::Uninit Vertex_Buffer::g_uninit;
+
 }
 
-#include <Zeni/Global_Undef.h>
+#include <Zeni/Undefine.h>
