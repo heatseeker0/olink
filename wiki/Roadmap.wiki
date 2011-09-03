@@ -1,0 +1,58 @@
+#summary Roadmap of OLink
+#labels Phase-Design,Featured
+
+= What is this page for? =
+
+On this page you will find the progress of each Core along with our version roadmap.
+
+
+= Roadmap =
+
+== Overall Progress ==
+
+Our overall progress on OLink is around 10% at most and probably more like 5%.
+
+== Cores ==
+
+|| *GUI* || *Networking* || *Security* || *Plugins* || *Logic* ||
+|| 30% || 0% || 0% || 40% || 0% ||
+
+See below for more details on each individual core.
+
+=== GUI ===
+
+|| Item || Progress - 1% Overall ||
+|| Window System || 90% ||
+|| GUIObject || 100% ||
+|| Button || 90% ||
+|| Text Box || 50% ||
+|| Text Label || 50% ||
+|| Check box || 50% ||
+|| Window || 0% ||
+
+Other stuff will be added to the table above as we progress.  Currently those are the items being focuses on.
+
+=== Networking ===
+
+Soon to be added
+
+=== Security ===
+
+Soon to be added 
+
+=== Plugins ===
+
+|| Item || Progress - 0% Overall ||
+|| Own File Format for Platform Independence || 0% ||
+|| Loading our own File Format || 0% ||
+|| Handling plugins in memory || 10% ||
+
+Plugins are currently being worked on.  Currently we are figuring out the best way to have the plugins handled in memory and then have functions called on them (or the plugins call functions).
+
+=== Logic ===
+
+Soon to be added
+
+== Content ==
+
+Until the Cores are done we will not talk about content.
