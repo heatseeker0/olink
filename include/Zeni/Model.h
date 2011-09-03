@@ -1,30 +1,19 @@
-/* This file is part of the Zenipex Library.
-* Copyleft (C) 2011 Mitchell Keith Bloch a.k.a. bazald
-*
-* The Zenipex Library is free software; you can redistribute it and/or 
-* modify it under the terms of the GNU General Public License as 
-* published by the Free Software Foundation; either version 2 of the 
-* License, or (at your option) any later version.
-*
-* The Zenipex Library is distributed in the hope that it will be useful, 
-* but WITHOUT ANY WARRANTY; without even the implied warranty of 
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License 
-* along with the Zenipex Library; if not, write to the Free Software 
-* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 
-* 02110-1301 USA.
-*
-* As a special exception, you may use this file as part of a free software
-* library without restriction.  Specifically, if other files instantiate
-* templates or use macros or inline functions from this file, or you compile
-* this file and link it with other files to produce an executable, this
-* file does not by itself cause the resulting executable to be covered by
-* the GNU General Public License.  This exception does not however
-* invalidate any other reasons why the executable file might be covered by
-* the GNU General Public License.
-*/
+/* This file is part of the Zenipex Library (zenilib).
+ * Copyright (C) 2011 Mitchell Keith Bloch (bazald).
+ *
+ * zenilib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * zenilib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with zenilib.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  * \class Zeni::Model
@@ -80,7 +69,7 @@
 #include <Zeni/Vector3f.h>
 
 #ifdef _MACOSX
-#include <lib3ds-2.0/lib3ds.h>
+#include <lib3ds/lib3ds.h>
 #else
 #include <lib3ds.h>
 #endif
@@ -89,10 +78,10 @@
 
 namespace Zeni {
 
-  class Model;
+  class ZENI_GRAPHICS_DLL Model;
   struct Quaternion;
 
-  class Model_Visitor {
+  class ZENI_GRAPHICS_DLL Model_Visitor {
   public:
     Model_Visitor() {}
     virtual ~Model_Visitor() {}
@@ -104,7 +93,7 @@ namespace Zeni {
     virtual void operator()(const Model & /*model*/, Lib3dsMeshInstanceNode * const & /*node*/, Lib3dsMesh * const & /*mesh*/) {}
   };
 
-  class Model_Extents : public Model_Visitor {
+  class ZENI_GRAPHICS_DLL Model_Extents : public Model_Visitor {
   public:
     Model_Extents();
 
@@ -114,10 +103,10 @@ namespace Zeni {
     bool started;
   };
 
-  class Model {
+  class ZENI_GRAPHICS_DLL Model {
   public:
     /// The only way to create a Model
-    Model(const std::string &filename, const bool align_normals_ = false);
+    Model(const String &filename, const bool align_normals_ = false);
     Model(const Model &rhs);
     ~Model();
 
@@ -139,7 +128,7 @@ namespace Zeni {
     inline void set_rotate(const float &angle, const Vector3f &ray); ///< Rotate the Model
     inline void set_rotate(const Quaternion &quaternion); ///< Rotate the Model
     inline void set_translate(const Point3f &vector); ///< Translate the Model
-    inline void set_keyframe(const float &keyframe); ///< Set the current (key)frame; interpolation is automatic
+    void set_keyframe(const float &keyframe); ///< Set the current (key)frame; interpolation is automatic
     inline void do_normal_alignment(const bool align_normals_ = true); // Set whether Model should try to fix broken normals before rendering
 
     // Post-Order Traversal
@@ -152,7 +141,7 @@ namespace Zeni {
     inline Lib3dsFile * const & thun_get_file() const; ///< Get the full 3ds file info - Thread Unsafe Version
 
   private:
-    std::string m_filename;
+    String m_filename;
     Lib3dsFile *m_file;
     float m_keyframe;
     bool m_align_normals;
@@ -166,7 +155,7 @@ namespace Zeni {
     Point3f m_translate;
     float m_rotate_angle;
     
-    class Loader : public Task {
+    class ZENI_GRAPHICS_DLL Loader : public Task {
       Loader(const Loader &);
       Loader & operator=(const Loader &);
       
@@ -185,11 +174,11 @@ namespace Zeni {
     mutable Runonce_Computation m_loader_op;
   };
 
-  struct Model_Init_Failure : public Error {
+  struct ZENI_GRAPHICS_DLL Model_Init_Failure : public Error {
     Model_Init_Failure() : Error("Zeni Model Failed to Initialize Correctly") {}
   };
 
-  struct Model_Render_Failure : public Error {
+  struct ZENI_GRAPHICS_DLL Model_Render_Failure : public Error {
     Model_Render_Failure() : Error("Zeni Model Failed to Render") {}
   };
 

@@ -1,61 +1,81 @@
-/* This file is part of the Zenipex Library.
-* Copyleft (C) 2011 Mitchell Keith Bloch a.k.a. bazald
-*
-* The Zenipex Library is free software; you can redistribute it and/or 
-* modify it under the terms of the GNU General Public License as 
-* published by the Free Software Foundation; either version 2 of the 
-* License, or (at your option) any later version.
-*
-* The Zenipex Library is distributed in the hope that it will be useful, 
-* but WITHOUT ANY WARRANTY; without even the implied warranty of 
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License 
-* along with the Zenipex Library; if not, write to the Free Software 
-* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 
-* 02110-1301 USA.
-*
-* As a special exception, you may use this file as part of a free software
-* library without restriction.  Specifically, if other files instantiate
-* templates or use macros or inline functions from this file, or you compile
-* this file and link it with other files to produce an executable, this
-* file does not by itself cause the resulting executable to be covered by
-* the GNU General Public License.  This exception does not however
-* invalidate any other reasons why the executable file might be covered by
-* the GNU General Public License.
-*/
+/* This file is part of the Zenipex Library (zenilib).
+ * Copyright (C) 2011 Mitchell Keith Bloch (bazald).
+ *
+ * zenilib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * zenilib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with zenilib.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#include <Zeni/Net.hxx>
+#include <zeni_net.h>
 
 #include <SDL/SDL.h>
 #include <vector>
 #include <list>
+#include <sstream>
+
+#if defined(_DEBUG) && defined(_WINDOWS)
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#endif
+
+#include <Zeni/Singleton.hxx>
 
 namespace Zeni {
 
+  template class ZENI_NET_DLL Singleton<Net>;
+
+  Net * Net::create() {
+    return new Net;
+  }
+
+  Singleton<Net>::Uninit Net::g_uninit;
+  Singleton<Net>::Reinit Net::g_reinit;
+
   Net::Net() {
+    Core::remove_post_reinit(&g_reinit);
+
     // Ensure Core is initialized
-    get_Core();
+    Core &cr = get_Core();
 
     if(SDLNet_Init())
       throw Net_Init_Failure();
+
+    cr.lend_pre_uninit(&g_uninit);
+    cr.lend_post_reinit(&g_reinit);
   }
 
   Net::~Net() {
+    Core::remove_pre_uninit(&g_uninit);
+
     SDLNet_Quit();
   }
 
   Net & get_Net() {
-    static Net e_net;
-    return e_net;
+    return Net::get();
   }
 
   TCP_Socket::TCP_Socket(IPaddress ip)
     : sock(0),
-      sockset(0)
+    sockset(0),
+#ifdef _WINDOWS
+#pragma warning( push )
+#pragma warning( disable : 4355 )
+#endif
+    m_uninit(*this)
+#ifdef _WINDOWS
+#pragma warning( pop )
+#endif
   {
-    get_Net();
+    Net &nr = get_Net();
 
     if(!ip.host)
       throw TCP_Socket_Init_Failure();
@@ -65,16 +85,27 @@ namespace Zeni {
     
     if(!sock ||
        !sockset ||
-       SDLNet_TCP_AddSocket(sockset, sock) == -1) {
+       SDLNet_TCP_AddSocket(sockset, sock) == -1)
+    {
       SDLNet_TCP_Close(sock);
       SDLNet_FreeSocketSet(sockset);
       throw TCP_Socket_Init_Failure();
     }
+
+    nr.lend_pre_uninit(&m_uninit);
   }
 
   TCP_Socket::TCP_Socket(TCPsocket socket)
     : sock(socket),
-      sockset(0)
+    sockset(0),
+#ifdef _WINDOWS
+#pragma warning( push )
+#pragma warning( disable : 4355 )
+#endif
+    m_uninit(*this)
+#ifdef _WINDOWS
+#pragma warning( pop )
+#endif
   {
     if(!sock)
       throw TCP_Socket_Init_Failure();
@@ -82,16 +113,23 @@ namespace Zeni {
     sockset = SDLNet_AllocSocketSet(1);
 
     if(!sockset ||
-       SDLNet_TCP_AddSocket(sockset, sock) == -1) {
+       SDLNet_TCP_AddSocket(sockset, sock) == -1)
+    {
       SDLNet_TCP_Close(sock);
       throw TCP_Socket_Init_Failure();
     }
+
+    get_Net().lend_pre_uninit(&m_uninit);
   }
 
   TCP_Socket::~TCP_Socket() {
-    SDLNet_TCP_DelSocket(sockset, sock);
-    SDLNet_FreeSocketSet(sockset);
-    SDLNet_TCP_Close(sock);
+    Net::remove_pre_uninit(&m_uninit);
+
+    if(sock && sockset) {
+      SDLNet_TCP_DelSocket(sockset, sock);
+      SDLNet_FreeSocketSet(sockset);
+      SDLNet_TCP_Close(sock);
+    }
   }
 
   IPaddress TCP_Socket::peer_address() const {
@@ -110,7 +148,7 @@ namespace Zeni {
       throw Socket_Closed();
   }
 
-  void TCP_Socket::send(const std::string &data) {
+  void TCP_Socket::send(const String &data) {
     send(data.c_str(), Uint16(data.size()));
   }
 
@@ -126,17 +164,36 @@ namespace Zeni {
     return retval;
   }
 
-  int TCP_Socket::receive(std::string &data, const Uint16 &num_bytes) {
+  int TCP_Socket::receive(String &data, const Uint16 &num_bytes) {
     data.resize(size_t(num_bytes));
     const int retval = receive(const_cast<char *>(data.c_str()), num_bytes);
     data.resize(size_t(retval));
     return retval;
   }
 
+  void TCP_Socket::Uninit::operator()() {
+    SDLNet_TCP_DelSocket(m_sock.sockset, m_sock.sock);
+    SDLNet_FreeSocketSet(m_sock.sockset);
+    SDLNet_TCP_Close(m_sock.sock);
+
+    m_sock.sock = 0;
+    m_sock.sockset = 0;
+
+    get_Core().remove_pre_uninit(this);
+  }
+
   TCP_Listener::TCP_Listener(const Uint16 &port)
-    : sock(0)
+    : sock(0),
+#ifdef _WINDOWS
+#pragma warning( push )
+#pragma warning( disable : 4355 )
+#endif
+    m_uninit(*this)
+#ifdef _WINDOWS
+#pragma warning( pop )
+#endif
   {
-    get_Net();
+    Net &nr = get_Net();
 
     IPaddress ip = {0, 0};
     SDLNet_Write16(port, &ip.port);
@@ -144,10 +201,23 @@ namespace Zeni {
     sock = SDLNet_TCP_Open(&ip);
     if(!sock)
       throw TCP_Socket_Init_Failure();
+
+    nr.lend_pre_uninit(&m_uninit);
   }
 
   TCP_Listener::~TCP_Listener() {
-    SDLNet_TCP_Close(sock);
+    get_Net().remove_pre_uninit(&m_uninit);
+
+    if(sock)
+      SDLNet_TCP_Close(sock);
+  }
+
+  void TCP_Listener::Uninit::operator()() {
+    SDLNet_TCP_Close(m_sock.sock);
+
+    m_sock.sock = 0;
+
+    get_Core().remove_pre_uninit(this);
   }
 
   TCPsocket TCP_Listener::accept() {
@@ -155,17 +225,30 @@ namespace Zeni {
   }
 
   UDP_Socket::UDP_Socket(const Uint16 &port)
-    : sock(0)
+    : sock(0),
+#ifdef _WINDOWS
+#pragma warning( push )
+#pragma warning( disable : 4355 )
+#endif
+    m_uninit(*this)
+#ifdef _WINDOWS
+#pragma warning( pop )
+#endif
   {
-    get_Net();
+    Net &nr = get_Net();
 
     sock = SDLNet_UDP_Open(port);
     if(!sock)
       throw UDP_Socket_Init_Failure();
+    
+    nr.lend_pre_uninit(&m_uninit);
   }
 
   UDP_Socket::~UDP_Socket() {
-    SDLNet_UDP_Close(sock);
+    Net::remove_pre_uninit(&m_uninit);
+
+    if(sock)
+      SDLNet_UDP_Close(sock);
   }
   
   IPaddress UDP_Socket::peer_address() const {
@@ -193,7 +276,7 @@ namespace Zeni {
     throw UDP_Packet_Overflow();
   }
   
-  void UDP_Socket::send(const IPaddress &ip, const std::string &data) {
+  void UDP_Socket::send(const IPaddress &ip, const String &data) {
     UDP_Socket::send(ip, data.c_str(), Uint16(data.size()));
   }
 
@@ -223,7 +306,7 @@ namespace Zeni {
     return packet.len;
   }
   
-  int UDP_Socket::receive(IPaddress &ip, std::string &data) {
+  int UDP_Socket::receive(IPaddress &ip, String &data) {
     int retval = UDP_Socket::receive(ip, data.c_str(), Uint16(data.size()));
     
     if(int(data.size()) > retval) {
@@ -233,7 +316,15 @@ namespace Zeni {
     
     return retval;
   }
-  
+
+  void UDP_Socket::Uninit::operator()() {
+    SDLNet_UDP_Close(m_sock.sock);
+
+    m_sock.sock = 0;
+
+    get_Core().remove_pre_uninit(this);
+  }
+
   Split_UDP_Socket::Chunk_Set::Chunk_Set(const IPaddress &sender,
                                          const Nonce &incoming,
                                          const Uint16 &num_chunks,
@@ -241,7 +332,8 @@ namespace Zeni {
                                          Chunk &chunk)
     : ip(sender),
       nonce(incoming),
-      chunks(num_chunks)
+      chunks(num_chunks),
+      chunks_arrived(1u)
   {
     assert(num_chunks > which);
     
@@ -257,9 +349,11 @@ namespace Zeni {
     if(ip == sender &&
        nonce == incoming &&
        chunks.size() == num_chunks &&
-       chunks.size() > which) {
+       chunks.size() > which)
+    {
       if(!chunks[which].data)
         chunks[which] = chunk;
+      ++chunks_arrived;
       return true;
     }
     
@@ -267,11 +361,13 @@ namespace Zeni {
   }
   
   bool Split_UDP_Socket::Chunk_Set::complete() const {
-    for(std::vector<Chunk>::const_iterator it = chunks.begin(); it != chunks.end(); ++it)
-      if(!it->data)
-        return false;
-    
-    return true;
+    return chunks_arrived == chunks.size();
+
+    //for(std::vector<Chunk>::const_iterator it = chunks.begin(); it != chunks.end(); ++it)
+    //  if(!it->data)
+    //    return false;
+    //
+    //return true;
   }
   
   Split_UDP_Socket::Chunk Split_UDP_Socket::Chunk_Set::receive() const {
@@ -338,7 +434,7 @@ namespace Zeni {
     
     const char *ptr = reinterpret_cast<const char *>(data);
     for(Uint16 chunk = 0; chunk < num_full_chunks; ++chunk, ptr += split_size) {
-      std::string s;
+      String s;
       
       {
         std::ostringstream os;
@@ -353,7 +449,7 @@ namespace Zeni {
     }
     
     if(partial_chunk) {
-      std::string s;
+      String s;
       
       {
         std::ostringstream os;
@@ -368,13 +464,13 @@ namespace Zeni {
     }
   }
   
-  void Split_UDP_Socket::send(const IPaddress &ip, const std::string &data) {
+  void Split_UDP_Socket::send(const IPaddress &ip, const String &data) {
     send(ip, data.c_str(), Uint16(data.size()));
   }
 
   int Split_UDP_Socket::receive(IPaddress &ip, const void * const &data, const Uint16 &num_bytes) {
     for(int retval = -1; retval;) {
-      std::string s;
+      String s;
       s.resize(m_chunk_size);
       
       retval = UDP_Socket::receive(ip, s);
@@ -387,7 +483,10 @@ namespace Zeni {
         {
           std::istringstream is(s);
           unserialize(unserialize(nonce.unserialize(is), num_chunks), which);
-          
+
+          if(!is)
+            continue;
+
           const Uint16 offset = static_cast<Uint16>(nonce.size()) + 2u * sizeof(Uint16);
           
           chunk.size = s.size() - offset;
@@ -412,7 +511,7 @@ namespace Zeni {
     return 0;
   }
   
-  int Split_UDP_Socket::receive(IPaddress &ip, std::string &data) {
+  int Split_UDP_Socket::receive(IPaddress &ip, String &data) {
     int retval = receive(ip, data.c_str(), Uint16(data.size()));
     
     if(int(data.size()) > retval) {
