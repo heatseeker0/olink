@@ -41,7 +41,7 @@ namespace GUISystem {
         stream.flush();
         
         //Set the seed for the random generator
-        srand( time( NULL ) );
+        srand( int(time( NULL )) );
         //Add a random number to the stream
         stream << rand() % RAND_MAX;
         
