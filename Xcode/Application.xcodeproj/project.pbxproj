@@ -242,7 +242,7 @@
 		D3822BE913F0EAAB00208551 /* zeni_graphics.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zeni_graphics.cxx; path = ../../src/zeni_graphics.cxx; sourceTree = "<group>"; };
 		D3822BEB13F0EAB200208551 /* zeni_net.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zeni_net.cxx; path = ../../src/zeni_net.cxx; sourceTree = "<group>"; };
 		D3822BED13F0EAB900208551 /* zeni_rest.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zeni_rest.cxx; path = ../../src/zeni_rest.cxx; sourceTree = "<group>"; };
-		D398AAFF13EF98E7004A17A0 /* Application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Application.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D398AAFF13EF98E7004A17A0 /* OLink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OLink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D398AB0613EF98E7004A17A0 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		D398AB0713EF98E7004A17A0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D398AB0813EF98E7004A17A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -503,6 +503,7 @@
 		4DDBF1A114127820001A2671 /* Cores */ = {
 			isa = PBXGroup;
 			children = (
+				4DDBF1BB1412CA7E001A2671 /* Security */,
 				4DDBF1A71412788F001A2671 /* Logic */,
 				4DDBF1A514127855001A2671 /* Networking */,
 				4DDBF1A41412784B001A2671 /* Plugins */,
@@ -547,6 +548,13 @@
 			children = (
 			);
 			name = Logic;
+			sourceTree = "<group>";
+		};
+		4DDBF1BB1412CA7E001A2671 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Security;
 			sourceTree = "<group>";
 		};
 		D34777CA13EFB45900212482 /* zeni */ = {
@@ -683,7 +691,7 @@
 		D398AB0013EF98E7004A17A0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D398AAFF13EF98E7004A17A0 /* Application.app */,
+				D398AAFF13EF98E7004A17A0 /* OLink.app */,
 				D34777C813EFB45900212482 /* zeni.framework */,
 				D3822B6513F0E99600208551 /* zeni_audio.framework */,
 				D3822B7813F0E9A000208551 /* zeni_core.framework */,
@@ -1086,7 +1094,7 @@
 			);
 			name = Application;
 			productName = Application;
-			productReference = D398AAFF13EF98E7004A17A0 /* Application.app */;
+			productReference = D398AAFF13EF98E7004A17A0 /* OLink.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1096,6 +1104,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0410;
+				ORGANIZATIONNAME = OLink;
 			};
 			buildConfigurationList = D398AAF913EF98E7004A17A0 /* Build configuration list for PBXProject "Application" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2029,7 +2038,7 @@
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../include\"";
 				INFOPLIST_FILE = "Application/Application-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OLink;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2068,7 +2077,7 @@
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../include\"";
 				INFOPLIST_FILE = "Application/Application-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = OLink;
 				SDKROOT = macosx10.6;
 				WRAPPER_EXTENSION = app;
 			};

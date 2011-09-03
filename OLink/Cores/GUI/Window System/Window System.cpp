@@ -65,12 +65,12 @@ namespace GUISystem {
     
 #pragma mark GUIObject Methods
     
-    void Window_System::addObject(GUIObject object)
+    void Window_System::addObject(GUIObject &object)
     {
         m_Context->objects.push_back(object); 
 	}
     
-    void Window_System::removeObject(GUIObject object)
+    void Window_System::removeObject(GUIObject &object)
     {
         for (int i = 0;i < m_Context->objects.size();i++)
         {
@@ -83,12 +83,12 @@ namespace GUISystem {
         }
     }
     
-    void Window_System::addObject(Context *contextToAddTo, GUIObject object)
+    void Window_System::addObject(Context *contextToAddTo, GUIObject &object)
     {
         contextToAddTo->objects.push_back(object); 
     }
     
-    void Window_System::removeObject(Context *contextToRemoveFrom, GUIObject object)
+    void Window_System::removeObject(Context *contextToRemoveFrom, GUIObject &object)
     {
         for (int i = 0;i < contextToRemoveFrom->objects.size();i++)
         {
@@ -102,7 +102,7 @@ namespace GUISystem {
     
 #pragma mark Render Methods
     
-    void Window_System::renderObject(GUIObject object)
+    void Window_System::renderObject(GUIObject &object)
     {
 		Zeni::Point2f cords = object.getCoordinates();
 		
@@ -110,8 +110,10 @@ namespace GUISystem {
 		
 		if (currentContext != NULL)
 			toMoveBy = currentContext->LowerRight;
-				
-        object.renderAt(Zeni::Point2f(cords.x + toMoveBy.x, cords.y + toMoveBy.y));
+		
+		Zeni::Point2f placeToRenderAt(cords.x + toMoveBy.x, cords.y + toMoveBy.y);
+		
+        object.renderAt(placeToRenderAt);
 	}
     
     void Window_System::renderAllObjects()

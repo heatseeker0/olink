@@ -75,9 +75,9 @@ namespace GUISystem {
 		this->moveTo(previousCoords);
     }
 	
-	void Button::render()
+	void Button::renderObject()
 	{
-		this->Text_Button::render();
+		this->render();
 	}
 	
 #pragma mark Text_Button methods

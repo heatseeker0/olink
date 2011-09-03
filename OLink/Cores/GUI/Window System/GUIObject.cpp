@@ -93,7 +93,7 @@ namespace GUISystem {
     
 #pragma mark render methods
     
-    void GUIObject::render()
+    void GUIObject::renderObject()
     {
         //Do nothing, nothing to do
     }

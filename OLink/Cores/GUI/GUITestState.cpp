@@ -9,7 +9,7 @@
 #include "GUITestState.h"
 
 GUITestState::GUITestState()
-: buttonToAdd("test", Zeni::Point2f(0.0f, 00.0f), this),
+: buttonToAdd("Test", Zeni::Point2f(0.0f, 0.0f), this),
 screen(Zeni::Point2f(get_Window().get_width(), get_Window().get_height()))
 {
 	screen.addObject(buttonToAdd);
