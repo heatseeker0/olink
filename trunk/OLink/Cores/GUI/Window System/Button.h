@@ -51,7 +51,7 @@ namespace GUISystem {
         
 #pragma Render methods
         void renderAt(Zeni::Point2f UpperLeft); //Render at the point
-		void render();
+		void renderObject();
         
 #pragma Text_Button methods
         void on_hover();

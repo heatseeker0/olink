@@ -42,15 +42,15 @@ namespace GUISystem {
         
 #pragma mark GUIObject Methods
         
-        void addObject(GUIObject object); //Add an object to this instance of the window system's context (whether that is the current one or not) context
-        void removeObject(GUIObject object); //Remove an object by its unique internal ID
+        void addObject(GUIObject &object); //Add an object to this instance of the window system's context (whether that is the current one or not) context
+        void removeObject(GUIObject &object); //Remove an object by its unique internal ID
         
-        void addObject(Context *contextToAddTo, GUIObject object); //Add an object to the context contextToAddTo
-        void removeObject(Context *contextToRemoveFrom, GUIObject object); //Remove an object from the context contextToRemoveFrom
+        void addObject(Context *contextToAddTo, GUIObject &object); //Add an object to the context contextToAddTo
+        void removeObject(Context *contextToRemoveFrom, GUIObject &object); //Remove an object from the context contextToRemoveFrom
         
 #pragma mark Render Methods
         
-        void renderObject(GUIObject object); //Render just the single given object
+        void renderObject(GUIObject &object); //Render just the single given object
         
         void renderAllObjects(); //Render all objects in the current context
         void render(); //Short hand for calling renderAllObjects
