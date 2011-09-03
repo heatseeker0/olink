@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DDB04DF1411BA8D002535F7 /* TestState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB04D71411BA8D002535F7 /* TestState.cpp */; };
-		4DDB04E01411BA8D002535F7 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB04D91411BA8D002535F7 /* Button.cpp */; };
-		4DDB04E11411BA8D002535F7 /* GUIObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB04DB1411BA8D002535F7 /* GUIObject.cpp */; };
-		4DDB04E21411BA8D002535F7 /* Window System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDB04DD1411BA8D002535F7 /* Window System.cpp */; };
+		4DDBF1AC14127B99001A2671 /* GUITestState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AB14127B99001A2671 /* GUITestState.cpp */; };
+		4DDBF1B314127BAA001A2671 /* Window System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AE14127BAA001A2671 /* Window System.cpp */; };
+		4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1B014127BAA001A2671 /* GUIObject.cpp */; };
+		4DDBF1B514127BAA001A2671 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1B214127BAA001A2671 /* Button.cpp */; };
 		D34777CF13EFB45900212482 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D34777CD13EFB45900212482 /* InfoPlist.strings */; };
 		D34777D813EFB5DE00212482 /* zeni.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34777C813EFB45900212482 /* zeni.framework */; };
 		D34777D913EFB5E000212482 /* zeni.framework in Resources */ = {isa = PBXBuildFile; fileRef = D34777C813EFB45900212482 /* zeni.framework */; };
@@ -202,15 +202,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4DDB04D51411BA87002535F7 /* TestState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestState.h; sourceTree = "<group>"; };
-		4DDB04D71411BA8D002535F7 /* TestState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestState.cpp; sourceTree = "<group>"; };
-		4DDB04D91411BA8D002535F7 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
-		4DDB04DB1411BA8D002535F7 /* GUIObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GUIObject.cpp; sourceTree = "<group>"; };
-		4DDB04DD1411BA8D002535F7 /* Window System.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "Window System.cpp"; sourceTree = "<group>"; };
-		4DDB04E41411BE20002535F7 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = Window_System/Button.h; sourceTree = "<group>"; };
-		4DDB04E51411BE20002535F7 /* GUIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUIObject.h; path = Window_System/GUIObject.h; sourceTree = "<group>"; };
-		4DDB04E61411BE20002535F7 /* Window System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Window System.h"; path = "Window_System/Window System.h"; sourceTree = "<group>"; };
 		4DDB04E71411C92A002535F7 /* Application.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Application.entitlements; sourceTree = "<group>"; };
+		4DDBF1AA14127B99001A2671 /* GUITestState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUITestState.h; path = ../OLink/Cores/GUI/GUITestState.h; sourceTree = SOURCE_ROOT; };
+		4DDBF1AB14127B99001A2671 /* GUITestState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUITestState.cpp; path = ../OLink/Cores/GUI/GUITestState.cpp; sourceTree = SOURCE_ROOT; };
+		4DDBF1AD14127BAA001A2671 /* Window System.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Window System.h"; path = "../OLink/Cores/GUI/Window System/Window System.h"; sourceTree = SOURCE_ROOT; };
+		4DDBF1AE14127BAA001A2671 /* Window System.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Window System.cpp"; path = "../OLink/Cores/GUI/Window System/Window System.cpp"; sourceTree = SOURCE_ROOT; };
+		4DDBF1AF14127BAA001A2671 /* GUIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUIObject.h; path = "../OLink/Cores/GUI/Window System/GUIObject.h"; sourceTree = SOURCE_ROOT; };
+		4DDBF1B014127BAA001A2671 /* GUIObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUIObject.cpp; path = "../OLink/Cores/GUI/Window System/GUIObject.cpp"; sourceTree = SOURCE_ROOT; };
+		4DDBF1B114127BAA001A2671 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = "../OLink/Cores/GUI/Window System/Button.h"; sourceTree = SOURCE_ROOT; };
+		4DDBF1B214127BAA001A2671 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = "../OLink/Cores/GUI/Window System/Button.cpp"; sourceTree = SOURCE_ROOT; };
 		D34777C813EFB45900212482 /* zeni.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = zeni.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D34777CC13EFB45900212482 /* zeni-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "zeni-Info.plist"; sourceTree = "<group>"; };
 		D34777CE13EFB45900212482 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -477,44 +477,76 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4DDB04D41411BA87002535F7 /* OLink */ = {
-			isa = PBXGroup;
-			children = (
-				4DDB04E31411BE0B002535F7 /* Window System */,
-				4DDB04D51411BA87002535F7 /* TestState.h */,
-			);
-			name = OLink;
-			path = ../../include/OLink;
-			sourceTree = "<group>";
-		};
-		4DDB04D61411BA8D002535F7 /* OLink */ = {
-			isa = PBXGroup;
-			children = (
-				4DDB04D71411BA8D002535F7 /* TestState.cpp */,
-				4DDB04D81411BA8D002535F7 /* Window System */,
-			);
-			name = OLink;
-			path = ../../src/OLink;
-			sourceTree = "<group>";
-		};
-		4DDB04D81411BA8D002535F7 /* Window System */ = {
-			isa = PBXGroup;
-			children = (
-				4DDB04D91411BA8D002535F7 /* Button.cpp */,
-				4DDB04DB1411BA8D002535F7 /* GUIObject.cpp */,
-				4DDB04DD1411BA8D002535F7 /* Window System.cpp */,
-			);
-			path = "Window System";
-			sourceTree = "<group>";
-		};
 		4DDB04E31411BE0B002535F7 /* Window System */ = {
 			isa = PBXGroup;
 			children = (
-				4DDB04E41411BE20002535F7 /* Button.h */,
-				4DDB04E51411BE20002535F7 /* GUIObject.h */,
-				4DDB04E61411BE20002535F7 /* Window System.h */,
+				4DDBF1AD14127BAA001A2671 /* Window System.h */,
+				4DDBF1AE14127BAA001A2671 /* Window System.cpp */,
+				4DDBF1AF14127BAA001A2671 /* GUIObject.h */,
+				4DDBF1B014127BAA001A2671 /* GUIObject.cpp */,
+				4DDBF1B114127BAA001A2671 /* Button.h */,
+				4DDBF1B214127BAA001A2671 /* Button.cpp */,
 			);
 			name = "Window System";
+			path = ../include/OLink;
+			sourceTree = "<group>";
+		};
+		4DDBF19F141277C1001A2671 /* OLink */ = {
+			isa = PBXGroup;
+			children = (
+				4DDBF1A114127820001A2671 /* Cores */,
+				4DDBF1A614127884001A2671 /* Content */,
+			);
+			name = OLink;
+			sourceTree = "<group>";
+		};
+		4DDBF1A114127820001A2671 /* Cores */ = {
+			isa = PBXGroup;
+			children = (
+				4DDBF1A71412788F001A2671 /* Logic */,
+				4DDBF1A514127855001A2671 /* Networking */,
+				4DDBF1A41412784B001A2671 /* Plugins */,
+				4DDBF1A314127843001A2671 /* GUI */,
+			);
+			name = Cores;
+			sourceTree = "<group>";
+		};
+		4DDBF1A314127843001A2671 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				4DDBF1AA14127B99001A2671 /* GUITestState.h */,
+				4DDBF1AB14127B99001A2671 /* GUITestState.cpp */,
+				4DDB04E31411BE0B002535F7 /* Window System */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		4DDBF1A41412784B001A2671 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Plugins;
+			sourceTree = "<group>";
+		};
+		4DDBF1A514127855001A2671 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		4DDBF1A614127884001A2671 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Content;
+			sourceTree = "<group>";
+		};
+		4DDBF1A71412788F001A2671 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Logic;
 			sourceTree = "<group>";
 		};
 		D34777CA13EFB45900212482 /* zeni */ = {
@@ -635,6 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				D398AD2313EFA182004A17A0 /* icon_mac.png */,
+				4DDBF19F141277C1001A2671 /* OLink */,
 				D398AB0913EF98E7004A17A0 /* Application */,
 				D34777CA13EFB45900212482 /* zeni */,
 				D3822B6813F0E99600208551 /* zeni_audio */,
@@ -721,7 +754,6 @@
 		D3B6744313FB724300E03DB8 /* Header Files */ = {
 			isa = PBXGroup;
 			children = (
-				4DDB04D41411BA87002535F7 /* OLink */,
 				D3B6744513FB726400E03DB8 /* Zeni */,
 				D3B674B913FB726500E03DB8 /* zeni_audio.h */,
 				D3B674BA13FB726500E03DB8 /* zeni_core.h */,
@@ -737,7 +769,6 @@
 		D3B6744413FB724A00E03DB8 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				4DDB04D61411BA8D002535F7 /* OLink */,
 				D3D77D9B13F1010C00CF66FF /* bootstrap.cpp */,
 			);
 			name = "Source Files";
@@ -1250,10 +1281,10 @@
 				D398AB1713EF98E7004A17A0 /* ApplicationAppDelegate.m in Sources */,
 				D398AB3813EF9AF7004A17A0 /* SDLMain.m in Sources */,
 				D3D77D9C13F1010C00CF66FF /* bootstrap.cpp in Sources */,
-				4DDB04DF1411BA8D002535F7 /* TestState.cpp in Sources */,
-				4DDB04E01411BA8D002535F7 /* Button.cpp in Sources */,
-				4DDB04E11411BA8D002535F7 /* GUIObject.cpp in Sources */,
-				4DDB04E21411BA8D002535F7 /* Window System.cpp in Sources */,
+				4DDBF1AC14127B99001A2671 /* GUITestState.cpp in Sources */,
+				4DDBF1B314127BAA001A2671 /* Window System.cpp in Sources */,
+				4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */,
+				4DDBF1B514127BAA001A2671 /* Button.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

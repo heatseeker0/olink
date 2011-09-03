@@ -6,7 +6,7 @@
 
 #include <zenilib.h>
 
-#include "TestState.h"
+#include "GUITestState.h"
 
 #if defined(_DEBUG) && defined(_WINDOWS)
 #define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -84,7 +84,7 @@ class Bootstrap {
       get_Fonts();
       get_Sounds();
 
-      return new TestState;
+      return new GUITestState;
     }
   } m_goi;
 
