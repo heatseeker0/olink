@@ -13,13 +13,15 @@
 namespace GUISystem {
 	
 #pragma mark Initialization
-
-    Button::Button(std::string title, Zeni::Point2f UpperLeft, Button_Delegate &newDelegate)
+	
+    Button::Button(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Button_Delegate &newDelegate)
     : GUIObject(UpperLeft),
 	delegate(newDelegate),
-	internalButton(title, UpperLeft, this)
+	internalButton(title, UpperLeft, Size, this)
     {
         this->title = title;
+		
+		this->Size = Size;
     }
     
     Button::~Button()
@@ -28,7 +30,7 @@ namespace GUISystem {
     }
     
 #pragma mark Getters & Setters
-
+	
     std::string Button::getTitle()
     {
         return title;
@@ -50,9 +52,9 @@ namespace GUISystem {
 	void Button::transform(Zeni::Point2f UpperLeft)
 	{
         this->GUIObject::transform(UpperLeft);
-	
+		
 		this->internalButton.set_upper_left(Zeni::Point2f(this->getCoordinates().x + UpperLeft.x, this->getCoordinates().y + UpperLeft.y));
-		this->internalButton.set_lower_right(Zeni::Point2f(this->getCoordinates().x + UpperLeft.x + 100.0f, this->getCoordinates().y + UpperLeft.y + 50.0f));
+		this->internalButton.set_lower_right(Zeni::Point2f(this->getCoordinates().x + UpperLeft.x + this->Size.x, this->getCoordinates().y + UpperLeft.y + this->Size.y));
 	}
 	
 	void Button::moveTo(Zeni::Point2f UpperLeft)
@@ -60,7 +62,7 @@ namespace GUISystem {
 		this->GUIObject::moveTo(UpperLeft);
 		
 		this->internalButton.set_upper_left(UpperLeft);
-		this->internalButton.set_lower_right(Zeni::Point2f(UpperLeft.x + 100.0f, UpperLeft.y + 50.0f));
+		this->internalButton.set_lower_right(Zeni::Point2f(UpperLeft.x + this->Size.x, UpperLeft.y + this->Size.y));
 	}
     
 #pragma Render methods

@@ -40,8 +40,8 @@ namespace GUISystem {
 			Button *delegate;
 			
 		public:
-			Internal_Button(std::string title, Zeni::Point2f UpperLeft, Button *delegate)
-			: Text_Button(UpperLeft, Zeni::Point2f(UpperLeft.x + 100.0f, UpperLeft.y + 50.0f),
+			Internal_Button(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Button *delegate)
+			: Text_Button(UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y),
 						  "DefaultFont", Zeni::String(title))
 			{
 				this->delegate = delegate;
@@ -55,7 +55,7 @@ namespace GUISystem {
 		Internal_Button internalButton;
         
 #pragma mark Initialization
-        Button(std::string title, Zeni::Point2f UpperLeft, Button_Delegate &delegate); //Initialize the button with a Title and a point to draw from
+        Button(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Button_Delegate &delegate); //Initialize the button with a Title and a point to draw from
         ~Button(); //Dealloc
         
 #pragma mark Getters & Setters
@@ -94,6 +94,8 @@ namespace GUISystem {
         std::string title; //Title of the button
         
         Button_Delegate &delegate;
+		
+		Zeni::Point2f Size;
     };
     
 }

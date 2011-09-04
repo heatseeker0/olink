@@ -10,12 +10,15 @@
 
 #include "Window System/Button.h"
 
+#include <sstream>
+
 GUITestState::GUITestState()
 : screen(Zeni::Point2f(get_Window().get_width(), get_Window().get_height())),
-buttonToAdd("Test", Zeni::Point2f(100.0f, 100.0f), *this)
+buttonToAdd("Click me!", Zeni::Point2f(10.0f, 10.0f), Zeni::Point2f(100.0f, 50.0f), *this),
+label("I am a test label", Zeni::Point2f(100.0f, 100.0f), Zeni::Point2f(150.0f, 50.0f))
 {
-	std::cout << "GUITestState:" << this << std::endl;
 	screen.addObject(&buttonToAdd);
+	screen.addObject(&label);
 	
 	screen.setCurrentContextToSelf();
 }
@@ -65,7 +68,14 @@ void GUITestState::button_accept(Button *whichButton)
 {
 	//Do nothing
 	
-	buttonToAdd.setTitle("Clicked!");
+	static int clicks = 0;
+	
+	clicks++;
+	
+	std::stringstream ss;
+	ss << clicks;
+	
+	buttonToAdd.setTitle(ss.str());
 }
 
 void GUITestState::button_reject(Button *whichButton)
