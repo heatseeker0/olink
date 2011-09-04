@@ -12,6 +12,7 @@
 #include "zenilib.h"
 #include "Window System/Window System.h"
 #include "Window System/Button.h"
+#include "Window System/TextLabel.h"
 
 #include <utility>
 
@@ -45,6 +46,7 @@ public:
 private:
     GUISystem::Window_System screen;
     Button buttonToAdd;
+	TextLabel label;
 };
 
 #endif
