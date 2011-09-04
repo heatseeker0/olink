@@ -11,16 +11,14 @@
 #include "Button.h"
 
 namespace GUISystem {
-
+	
 #pragma mark Initialization
 
-    Button::Button(std::string title, Zeni::Point2f UpperLeft)
+    Button::Button(std::string title, Zeni::Point2f UpperLeft, Button_Delegate &newDelegate)
     : GUIObject(UpperLeft),
+	delegate(newDelegate),
 	internalButton(title, UpperLeft, this)
     {
-		delegate = NULL;
-		
-		std::cout << "buttonToAdd-ThisPointer:" << this << std::endl;
         this->title = title;
     }
     
@@ -42,13 +40,9 @@ namespace GUISystem {
 		this->internalButton.text = Zeni::String(title);
     }
     
-    void Button::setDelegate(Button_Delegate *delegate)
+    void Button::setDelegate(Button_Delegate &delegate)
     {
-		std::cout << "Delegate(GUITestState):" << delegate << std::endl;
-        if (delegate)
-			this->delegate = delegate;
-		else
-			delegate = NULL;
+		this->delegate = delegate;
     }
 	
 #pragma mark Movement methods
@@ -84,5 +78,40 @@ namespace GUISystem {
 	void Button::renderObject()
 	{
 		this->internalButton.render();
+	}
+	
+	void Button::on_hover()
+	{
+		this->delegate.button_hover(this);
+	}
+	
+	void Button::on_unhover()
+	{
+		this->delegate.button_unhover(this);
+	}
+	
+	void Button::on_click()
+	{
+		this->delegate.button_click(this);
+	}
+	
+	void Button::on_stray()
+	{
+		this->delegate.button_stray(this);
+	}
+	
+	void Button::on_unstray()
+	{
+		this->delegate.button_unstray(this);
+	}
+	
+	void Button::on_accept()
+	{
+		this->delegate.button_accept(this);
+	}
+	
+	void Button::on_reject()
+	{
+		this->delegate.button_reject(this);
 	}
 };
