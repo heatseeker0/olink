@@ -90,16 +90,4 @@ namespace GUISystem {
         //Set our coords to these to move us TO a point
         m_coord = coordToMoveTo;
     }
-    
-#pragma mark render methods
-    
-    void GUIObject::renderObject()
-    {
-        //Do nothing, nothing to do
-    }
-    
-    void GUIObject::renderAt(Zeni::Point2f coord)
-    {
-        //Do nothing, nothing to do
-    }
 }
