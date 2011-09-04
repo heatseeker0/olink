@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D160087141417680003E69C /* TextLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D160086141417680003E69C /* TextLabel.cpp */; };
 		4DDBF1AC14127B99001A2671 /* GUITestState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AB14127B99001A2671 /* GUITestState.cpp */; };
 		4DDBF1B314127BAA001A2671 /* Window System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AE14127BAA001A2671 /* Window System.cpp */; };
 		4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1B014127BAA001A2671 /* GUIObject.cpp */; };
@@ -202,6 +203,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D160086141417680003E69C /* TextLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextLabel.cpp; path = "../OLink/Cores/GUI/Window System/TextLabel.cpp"; sourceTree = SOURCE_ROOT; };
+		4D160088141417900003E69C /* TextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextLabel.h; path = "../OLink/Cores/GUI/Window System/TextLabel.h"; sourceTree = SOURCE_ROOT; };
 		4DDB04E71411C92A002535F7 /* Application.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Application.entitlements; sourceTree = "<group>"; };
 		4DDBF1AA14127B99001A2671 /* GUITestState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUITestState.h; path = ../OLink/Cores/GUI/GUITestState.h; sourceTree = SOURCE_ROOT; };
 		4DDBF1AB14127B99001A2671 /* GUITestState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUITestState.cpp; path = ../OLink/Cores/GUI/GUITestState.cpp; sourceTree = SOURCE_ROOT; };
@@ -486,6 +489,8 @@
 				4DDBF1B014127BAA001A2671 /* GUIObject.cpp */,
 				4DDBF1B114127BAA001A2671 /* Button.h */,
 				4DDBF1B214127BAA001A2671 /* Button.cpp */,
+				4D160086141417680003E69C /* TextLabel.cpp */,
+				4D160088141417900003E69C /* TextLabel.h */,
 			);
 			name = "Window System";
 			path = ../include/OLink;
@@ -1297,6 +1302,7 @@
 				4DDBF1B314127BAA001A2671 /* Window System.cpp in Sources */,
 				4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */,
 				4DDBF1B514127BAA001A2671 /* Button.cpp in Sources */,
+				4D160087141417680003E69C /* TextLabel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
