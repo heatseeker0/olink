@@ -8,21 +8,20 @@
 
 #include "GUITestState.h"
 
+#include "Window System/Button.h"
+
 GUITestState::GUITestState()
-: screen(Zeni::Point2f(get_Window().get_width(), get_Window().get_height()))
+: screen(Zeni::Point2f(get_Window().get_width(), get_Window().get_height())),
+buttonToAdd("Test", Zeni::Point2f(100.0f, 100.0f), *this)
 {
 	std::cout << "GUITestState:" << this << std::endl;
-	buttonToAdd = new Button("Test", Zeni::Point2f(100.0f, 100.0f));
-	std::cout << "buttonToAdd:" << buttonToAdd << std::endl;
-	buttonToAdd->setDelegate(this);
-	screen.addObject(buttonToAdd);
+	screen.addObject(&buttonToAdd);
 	
 	screen.setCurrentContextToSelf();
 }
 
 GUITestState::~GUITestState()
 {
-	delete buttonToAdd;
 }
 
 void GUITestState::render()
@@ -32,40 +31,44 @@ void GUITestState::render()
 	
 	vr.set_2d(std::pair<Zeni::Point2f, Zeni::Point2f>(Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(window.get_width(), window.get_height())), true);
 	
+	buttonToAdd.setDelegate(*this);
+	
 	screen.render();
 }
 
-void GUITestState::button_hover()
+void GUITestState::button_hover(Button *whichButton)
 {
 	//Do nothing
 }
 
-void GUITestState::button_unhover()
+void GUITestState::button_unhover(Button *whichButton)
 {
 	//Do nothing
 }
 
-void GUITestState::button_click()
-{
-	buttonToAdd->setTitle("Clicked!");
-}
-
-void GUITestState::button_stray()
+void GUITestState::button_click(Button *whichButton)
 {
 	//Do nothing
 }
 
-void GUITestState::button_unstray()
+void GUITestState::button_stray(Button *whichButton)
 {
 	//Do nothing
 }
 
-void GUITestState::button_accept()
+void GUITestState::button_unstray(Button *whichButton)
 {
 	//Do nothing
 }
 
-void GUITestState::button_reject()
+void GUITestState::button_accept(Button *whichButton)
+{
+	//Do nothing
+	
+	buttonToAdd.setTitle("Clicked!");
+}
+
+void GUITestState::button_reject(Button *whichButton)
 {
 	//Do nothing
 }

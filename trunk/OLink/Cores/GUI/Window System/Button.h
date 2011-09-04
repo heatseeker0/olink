@@ -13,7 +13,7 @@
 #include <string.h>
 
 namespace GUISystem {
-    
+	
     class Button : public GUIObject
     {
     public:
@@ -22,15 +22,15 @@ namespace GUISystem {
         {
         public:
             //See Widget.h/Text_Button for more info about each one.
-            virtual void button_hover() = 0;
-            virtual void button_unhover() = 0;
+            virtual void button_hover(Button *whichButton) = 0;
+            virtual void button_unhover(Button *whichButton) = 0;
             
-            virtual void button_click() = 0;
-            virtual void button_stray() = 0;
-            virtual void button_unstray() = 0;
+            virtual void button_click(Button *whichButton) = 0;
+            virtual void button_stray(Button *whichButton) = 0;
+            virtual void button_unstray(Button *whichButton) = 0;
             
-            virtual void button_accept() = 0;
-            virtual void button_reject() = 0;
+            virtual void button_accept(Button *whichButton) = 0;
+            virtual void button_reject(Button *whichButton) = 0;
         };
         
 		class Internal_Button : public Zeni::Text_Button {
@@ -44,25 +44,25 @@ namespace GUISystem {
 			: Text_Button(UpperLeft, Zeni::Point2f(UpperLeft.x + 100.0f, UpperLeft.y + 50.0f),
 						  "DefaultFont", Zeni::String(title))
 			{
-				delegate = delegate;
+				this->delegate = delegate;
 			}
 			
 			void on_accept() {
-				delegate->on_accept();
+				this->delegate->on_accept();
 			}
 		};
 		
 		Internal_Button internalButton;
         
 #pragma mark Initialization
-        Button(std::string title, Zeni::Point2f UpperLeft); //Initialize the button with a Title and a point to draw from
+        Button(std::string title, Zeni::Point2f UpperLeft, Button_Delegate &delegate); //Initialize the button with a Title and a point to draw from
         ~Button(); //Dealloc
         
 #pragma mark Getters & Setters
         std::string getTitle(); //Get the title of the button
         void setTitle(std::string title); //Set the title of the button
         
-        void setDelegate(Button_Delegate *delegate);
+        void setDelegate(Button_Delegate &delegate);
 		
 		Zeni::Widget *getWidget() { return &internalButton; };
 		
@@ -76,52 +76,24 @@ namespace GUISystem {
 		void renderObject();
         
 #pragma Text_Button methods		
-        void on_hover()
-		{
-			if (delegate)
-				delegate->button_hover();
-		}
+        void on_hover();
 		
-		void on_unhover()
-		{
-			if (delegate)
-				delegate->button_unhover();
-		}
+		void on_unhover();
 		
-		void on_click()
-		{
-			if (delegate)
-				delegate->button_click();
-		}
+		void on_click();
 		
-		void on_stray()
-		{
-			if (delegate)
-				delegate->button_stray();
-		}
+		void on_stray();
 		
-		void on_unstray()
-		{
-			if (delegate)
-				delegate->button_unstray();
-		}
+		void on_unstray();
 		
-		void on_accept()
-		{
-			if (delegate)
-				delegate->button_accept();
-		}
+		void on_accept();
 		
-		void on_reject()
-		{
-			if (delegate)
-				delegate->button_reject();
-		}
+		void on_reject();
 		
     private:
         std::string title; //Title of the button
         
-        Button_Delegate *delegate;
+        Button_Delegate &delegate;
     };
     
 }

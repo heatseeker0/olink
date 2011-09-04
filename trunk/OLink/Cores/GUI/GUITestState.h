@@ -6,9 +6,11 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#ifndef GUITestState_H
+#define GUITestState_H
+
 #include "zenilib.h"
 #include "Window System/Window System.h"
-
 #include "Window System/Button.h"
 
 #include <utility>
@@ -30,17 +32,19 @@ public:
 	
 #pragma mark Button Delegate Methods
 	
-	void button_hover();
-	void button_unhover();
+	void button_hover(Button *whichButton);
+	void button_unhover(Button *whichButton);
 	
-	void button_click();
-	void button_stray();
-	void button_unstray();
+	void button_click(Button *whichButton);
+	void button_stray(Button *whichButton);
+	void button_unstray(Button *whichButton);
 	
-	void button_accept();
-	void button_reject();
+	void button_accept(Button *whichButton);
+	void button_reject(Button *whichButton);
 	
 private:
     GUISystem::Window_System screen;
-    Button *buttonToAdd;
+    Button buttonToAdd;
 };
+
+#endif
