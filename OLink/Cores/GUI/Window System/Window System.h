@@ -15,7 +15,7 @@
 namespace GUISystem {
     
     typedef struct {
-        std::vector<GUIObject> objects;
+        std::vector<GUIObject*> objects;
         
         //Used for clamping a context to a portion of a screen like in a window within the main window (screen)
         Zeni::Point2f UpperLeft;
@@ -42,15 +42,15 @@ namespace GUISystem {
         
 #pragma mark GUIObject Methods
         
-        void addObject(GUIObject &object); //Add an object to this instance of the window system's context (whether that is the current one or not) context
-        void removeObject(GUIObject &object); //Remove an object by its unique internal ID
+        void addObject(GUIObject *object); //Add an object to this instance of the window system's context (whether that is the current one or not) context
+        void removeObject(GUIObject *object); //Remove an object by its unique internal ID
         
-        void addObject(Context *contextToAddTo, GUIObject &object); //Add an object to the context contextToAddTo
-        void removeObject(Context *contextToRemoveFrom, GUIObject &object); //Remove an object from the context contextToRemoveFrom
+        void addObject(Context *contextToAddTo, GUIObject *object); //Add an object to the context contextToAddTo
+        void removeObject(Context *contextToRemoveFrom, GUIObject *object); //Remove an object from the context contextToRemoveFrom
         
 #pragma mark Render Methods
         
-        void renderObject(GUIObject &object); //Render just the single given object
+        void renderObject(GUIObject *object); //Render just the single given object
         
         void renderAllObjects(); //Render all objects in the current context
         void render(); //Short hand for calling renderAllObjects
@@ -58,6 +58,11 @@ namespace GUISystem {
         void renderContext(Context* contextToRender); //Render a context on the screen
         
 #pragma mark Widget Methods
+		
+		void on_key(const SDL_KeyboardEvent &event);
+		void on_mouse_button(const SDL_MouseButtonEvent &event);
+		void on_mouse_motion(const SDL_MouseMotionEvent &event);
+		void perform_logic();
         
     private:
         static Context *currentContext; //Global current context which is used to render the screen
@@ -69,6 +74,9 @@ namespace GUISystem {
         Zeni::Projector2D m_projector;
 		
 		Zeni::Point2f screenSize;
+		
+		bool isWidgetBusy;
+		Zeni::Widget *busyWidget;
     };
     
 }

@@ -21,6 +21,9 @@ namespace GUISystem {
 			this->createNewCurrentContext();
 		else
 			m_Context = new Context;
+		
+		busyWidget = 0;
+		isWidgetBusy = false;
     }
     
     Window_System::~Window_System()
@@ -65,16 +68,16 @@ namespace GUISystem {
     
 #pragma mark GUIObject Methods
     
-    void Window_System::addObject(GUIObject &object)
+    void Window_System::addObject(GUIObject *object)
     {
         m_Context->objects.push_back(object); 
 	}
     
-    void Window_System::removeObject(GUIObject &object)
+    void Window_System::removeObject(GUIObject *object)
     {
         for (int i = 0;i < m_Context->objects.size();i++)
         {
-            if (m_Context->objects[i].getUID() == object.getUID())
+            if (m_Context->objects[i]->getUID() == object->getUID())
             {
                 m_Context->objects.erase(m_Context->objects.begin()+i);
 				
@@ -83,16 +86,16 @@ namespace GUISystem {
         }
     }
     
-    void Window_System::addObject(Context *contextToAddTo, GUIObject &object)
+    void Window_System::addObject(Context *contextToAddTo, GUIObject *object)
     {
         contextToAddTo->objects.push_back(object); 
     }
     
-    void Window_System::removeObject(Context *contextToRemoveFrom, GUIObject &object)
+    void Window_System::removeObject(Context *contextToRemoveFrom, GUIObject *object)
     {
         for (int i = 0;i < contextToRemoveFrom->objects.size();i++)
         {
-            if (contextToRemoveFrom->objects[i].getUID() == object.getUID())
+            if (contextToRemoveFrom->objects[i]->getUID() == object->getUID())
             {
                 contextToRemoveFrom->objects.erase(contextToRemoveFrom->objects.begin()+i);
                 break;
@@ -102,18 +105,18 @@ namespace GUISystem {
     
 #pragma mark Render Methods
     
-    void Window_System::renderObject(GUIObject &object)
+    void Window_System::renderObject(GUIObject *object)
     {
-		Zeni::Point2f cords = object.getCoordinates();
+		Zeni::Point2f cords = object->getCoordinates();
 		
 		Zeni::Point2f toMoveBy(0.0f, 0.0f);
 		
 		if (currentContext != NULL)
-			toMoveBy = currentContext->LowerRight;
+			toMoveBy = currentContext->UpperLeft;
 		
 		Zeni::Point2f placeToRenderAt(cords.x + toMoveBy.x, cords.y + toMoveBy.y);
 		
-        object.renderAt(placeToRenderAt);
+        object->renderAt(placeToRenderAt);
 	}
     
     void Window_System::renderAllObjects()
@@ -141,4 +144,86 @@ namespace GUISystem {
 		
 		Window_System::currentContext = oldContext;
     }
+	
+#pragma mark Widget Methods
+	
+	void Window_System::on_key(const SDL_KeyboardEvent &event)
+	{
+		if(busyWidget) {
+			busyWidget->on_key(event.keysym, event.type == SDL_KEYDOWN);
+			
+			if(!busyWidget->is_busy()) {
+				busyWidget = 0;
+				isWidgetBusy = false;
+			}
+		}
+		else {
+			//std::sort(m_widgets.begin(), m_widgets.end(), &widget_layer_less);
+			
+			for(std::vector<GUIObject *>::iterator it = currentContext->objects.begin(); it != currentContext->objects.end(); ++it) {
+				(*it)->getWidget()->on_key(event.keysym, event.type == SDL_KEYDOWN);
+				
+				if(!busyWidget && (*it)->getWidget()->is_busy()) {
+					busyWidget = (*it)->getWidget();
+					isWidgetBusy = true;
+				}
+			}
+		}
+	}
+	
+	void Window_System::on_mouse_button(const SDL_MouseButtonEvent &event)
+	{
+		using namespace Zeni;
+				
+		const Point2f projected = m_projector.unproject(Point2f(float(event.x), float(event.y)));
+		
+		if(busyWidget) {
+			busyWidget->on_mouse_button(Point2i(int(projected.x), int(projected.y)), event.type == SDL_MOUSEBUTTONDOWN, event.button);
+			
+			if(!busyWidget->is_busy()) {
+				busyWidget = 0;
+				isWidgetBusy = false;
+			}
+		}
+		else {			
+			for(std::vector<GUIObject *>::iterator it = currentContext->objects.begin(); it != currentContext->objects.end(); ++it) {
+				(*it)->getWidget()->on_mouse_button(Point2i(int(projected.x), int(projected.y)), event.type == SDL_MOUSEBUTTONDOWN, event.button);
+				
+				if(!busyWidget && (*it)->getWidget()->is_busy()) {
+					busyWidget = (*it)->getWidget();
+					isWidgetBusy = true;
+				}
+			}
+		}
+	}
+	
+	void Window_System::on_mouse_motion(const SDL_MouseMotionEvent &event)
+	{
+		if(busyWidget) {
+			busyWidget->on_mouse_motion(Zeni::Point2i(event.x, event.y));
+			
+			if(!busyWidget->is_busy()) {
+				busyWidget = 0;
+				isWidgetBusy = false;
+			}
+		}
+		else {			
+			for(std::vector<GUIObject *>::iterator it = currentContext->objects.begin(); it != currentContext->objects.end(); ++it) {
+				(*it)->getWidget()->on_mouse_motion(Zeni::Point2i(event.x, event.y));
+				
+				if(!busyWidget && (*it)->getWidget()->is_busy()) {
+					busyWidget = (*it)->getWidget();
+					isWidgetBusy = true;
+				}
+			}
+		}
+	}
+	
+	void Window_System::perform_logic()
+	{
+		m_projector = Zeni::Projector2D(std::pair<Zeni::Point2f, Zeni::Point2f>(Zeni::Point2f(0.0f, 0.0f), screenSize), Zeni::get_Video().get_viewport());
+		
+		for(std::vector<GUIObject *>::iterator it = currentContext->objects.begin(); it != currentContext->objects.end(); ++it)
+			(*it)->getWidget()->perform_logic();
+	}
 }

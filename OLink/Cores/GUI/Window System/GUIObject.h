@@ -35,8 +35,10 @@ namespace GUISystem {
         
 #pragma mark render methods
         
-        virtual void renderObject(); //Every sub class needs to have a render method!
-        virtual void renderAt(Zeni::Point2f UpperLeft); //Render method to render at a specific point, used for adjusting if for example the object is in a window		
+        virtual void renderObject() = 0; //Every sub class needs to have a render method!
+        virtual void renderAt(Zeni::Point2f UpperLeft) = 0; //Render method to render at a specific point, used for adjusting if for example the object is in a window	
+		virtual Zeni::Widget *getWidget() = 0;
+		
     private:
         std::string m_uniqueIdentifier; //Unique identifier to identify this object as unique. ( Unix timestamp when object was created + :randomnumber should be unique )
         
