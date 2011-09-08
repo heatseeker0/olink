@@ -13,13 +13,15 @@
 #include "Window System/Window System.h"
 #include "Window System/Button.h"
 #include "Window System/TextLabel.h"
+#include "Window System/CheckBox.h"
+#include "Window System/Slider.h"
 
 #include <utility>
 
 using namespace GUISystem;
 using namespace Zeni;
 
-class GUITestState : public Gamestate_Base, public Button::Button_Delegate
+class GUITestState : public Gamestate_Base, public Button::Button_Delegate, public CheckBox::CheckBox_Delegate, public GUISystem::Slider::Slider_Delegate
 {
 public:
     GUITestState();
@@ -43,10 +45,28 @@ public:
 	void button_accept(Button *whichButton);
 	void button_reject(Button *whichButton);
 	
+#pragma mark CheckBox Delegate Methods
+	
+	void checkbox_accept(CheckBox *checkBox);
+	
+	void checkbox_click(CheckBox *checkBox);
+	
+	void checkbox_stray(CheckBox *checkBox);
+	void checkbox_unstray(CheckBox *checkBox);
+	
+	void checkbox_reject(CheckBox *checkBox);
+	
+#pragma mark Slider Delegate Methods
+	
+	void slider_slide(GUISystem::Slider *slider);
+	void slider_accept(GUISystem::Slider *slider);
+	
 private:
     GUISystem::Window_System screen;
-    Button buttonToAdd;
-	TextLabel label;
+    GUISystem::Button buttonToAdd;
+	GUISystem::TextLabel label;
+	GUISystem::CheckBox checkBox;
+	GUISystem::Slider slider;
 };
 
 #endif

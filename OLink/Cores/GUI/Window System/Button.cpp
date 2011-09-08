@@ -17,7 +17,7 @@ namespace GUISystem {
     Button::Button(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Button_Delegate &newDelegate)
     : GUIObject(UpperLeft),
 	delegate(newDelegate),
-	internalButton(title, UpperLeft, Size, this)
+	internalButton(title, UpperLeft, Size, newDelegate, this)
     {
         this->title = title;
 		
@@ -45,6 +45,7 @@ namespace GUISystem {
     void Button::setDelegate(Button_Delegate &delegate)
     {
 		this->delegate = delegate;
+		internalButton.delegate = delegate;
     }
 	
 #pragma mark Movement methods
@@ -80,40 +81,5 @@ namespace GUISystem {
 	void Button::renderObject()
 	{
 		this->internalButton.render();
-	}
-	
-	void Button::on_hover()
-	{
-		this->delegate.button_hover(this);
-	}
-	
-	void Button::on_unhover()
-	{
-		this->delegate.button_unhover(this);
-	}
-	
-	void Button::on_click()
-	{
-		this->delegate.button_click(this);
-	}
-	
-	void Button::on_stray()
-	{
-		this->delegate.button_stray(this);
-	}
-	
-	void Button::on_unstray()
-	{
-		this->delegate.button_unstray(this);
-	}
-	
-	void Button::on_accept()
-	{
-		this->delegate.button_accept(this);
-	}
-	
-	void Button::on_reject()
-	{
-		this->delegate.button_reject(this);
 	}
 };

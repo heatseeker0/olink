@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4D160087141417680003E69C /* TextLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D160086141417680003E69C /* TextLabel.cpp */; };
+		4D160093141424550003E69C /* Slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D16008C141424540003E69C /* Slider.cpp */; };
+		4D160094141424550003E69C /* RadioButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D16008E141424540003E69C /* RadioButton.cpp */; };
+		4D160096141424550003E69C /* CheckBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D160092141424550003E69C /* CheckBox.cpp */; };
 		4DDBF1AC14127B99001A2671 /* GUITestState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AB14127B99001A2671 /* GUITestState.cpp */; };
 		4DDBF1B314127BAA001A2671 /* Window System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AE14127BAA001A2671 /* Window System.cpp */; };
 		4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1B014127BAA001A2671 /* GUIObject.cpp */; };
@@ -205,6 +208,12 @@
 /* Begin PBXFileReference section */
 		4D160086141417680003E69C /* TextLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextLabel.cpp; path = "../OLink/Cores/GUI/Window System/TextLabel.cpp"; sourceTree = SOURCE_ROOT; };
 		4D160088141417900003E69C /* TextLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextLabel.h; path = "../OLink/Cores/GUI/Window System/TextLabel.h"; sourceTree = SOURCE_ROOT; };
+		4D16008B141424530003E69C /* Slider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Slider.h; path = "../OLink/Cores/GUI/Window System/Slider.h"; sourceTree = SOURCE_ROOT; };
+		4D16008C141424540003E69C /* Slider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Slider.cpp; path = "../OLink/Cores/GUI/Window System/Slider.cpp"; sourceTree = SOURCE_ROOT; };
+		4D16008D141424540003E69C /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadioButton.h; path = "../OLink/Cores/GUI/Window System/RadioButton.h"; sourceTree = SOURCE_ROOT; };
+		4D16008E141424540003E69C /* RadioButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RadioButton.cpp; path = "../OLink/Cores/GUI/Window System/RadioButton.cpp"; sourceTree = SOURCE_ROOT; };
+		4D160091141424540003E69C /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckBox.h; path = "../OLink/Cores/GUI/Window System/CheckBox.h"; sourceTree = SOURCE_ROOT; };
+		4D160092141424550003E69C /* CheckBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBox.cpp; path = "../OLink/Cores/GUI/Window System/CheckBox.cpp"; sourceTree = SOURCE_ROOT; };
 		4DDB04E71411C92A002535F7 /* Application.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Application.entitlements; sourceTree = "<group>"; };
 		4DDBF1AA14127B99001A2671 /* GUITestState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUITestState.h; path = ../OLink/Cores/GUI/GUITestState.h; sourceTree = SOURCE_ROOT; };
 		4DDBF1AB14127B99001A2671 /* GUITestState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUITestState.cpp; path = ../OLink/Cores/GUI/GUITestState.cpp; sourceTree = SOURCE_ROOT; };
@@ -483,6 +492,12 @@
 		4DDB04E31411BE0B002535F7 /* Window System */ = {
 			isa = PBXGroup;
 			children = (
+				4D16008B141424530003E69C /* Slider.h */,
+				4D16008C141424540003E69C /* Slider.cpp */,
+				4D16008D141424540003E69C /* RadioButton.h */,
+				4D16008E141424540003E69C /* RadioButton.cpp */,
+				4D160091141424540003E69C /* CheckBox.h */,
+				4D160092141424550003E69C /* CheckBox.cpp */,
 				4DDBF1AD14127BAA001A2671 /* Window System.h */,
 				4DDBF1AE14127BAA001A2671 /* Window System.cpp */,
 				4DDBF1AF14127BAA001A2671 /* GUIObject.h */,
@@ -1303,6 +1318,9 @@
 				4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */,
 				4DDBF1B514127BAA001A2671 /* Button.cpp in Sources */,
 				4D160087141417680003E69C /* TextLabel.cpp in Sources */,
+				4D160093141424550003E69C /* Slider.cpp in Sources */,
+				4D160094141424550003E69C /* RadioButton.cpp in Sources */,
+				4D160096141424550003E69C /* CheckBox.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1981,7 +1999,8 @@
 		D398AB1B13EF98E8004A17A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = ../Frameworks;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -2000,8 +2019,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = ../Frameworks;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
