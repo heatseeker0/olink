@@ -15,10 +15,14 @@
 GUITestState::GUITestState()
 : screen(Zeni::Point2f(get_Window().get_width(), get_Window().get_height())),
 buttonToAdd("Click me!", Zeni::Point2f(10.0f, 10.0f), Zeni::Point2f(100.0f, 50.0f), *this),
-label("I am a test label", Zeni::Point2f(100.0f, 100.0f), Zeni::Point2f(150.0f, 50.0f))
+label("I am a test label", Zeni::Point2f(100.0f, 100.0f), Zeni::Point2f(150.0f, 50.0f)),
+checkBox(Zeni::Point2f(500.0f, 100.0f), Zeni::Point2f(50.0f, 50.0f), *this),
+slider(Zeni::Point2f(50.0f, 400.0f), Zeni::Point2f(50.0f, 450.0f), 15.0f, *this)
 {
 	screen.addObject(&buttonToAdd);
 	screen.addObject(&label);
+	screen.addObject(&checkBox);
+	screen.addObject(&slider);
 	
 	screen.setCurrentContextToSelf();
 }
@@ -81,6 +85,42 @@ void GUITestState::button_accept(Button *whichButton)
 void GUITestState::button_reject(Button *whichButton)
 {
 	//Do nothing
+}
+
+
+void GUITestState::checkbox_accept(CheckBox *checkBox)
+{
+	
+}
+
+void GUITestState::checkbox_click(CheckBox *checkBox)
+{
+	
+}
+
+void GUITestState::checkbox_stray(CheckBox *checkBox)
+{
+	
+}
+
+void GUITestState::checkbox_unstray(CheckBox *checkBox)
+{
+	
+}
+
+void GUITestState::checkbox_reject(CheckBox *checkBox)
+{
+	
+}
+
+void GUITestState::slider_slide(GUISystem::Slider *slider)
+{
+	
+}
+
+void GUITestState::slider_accept(GUISystem::Slider *slider)
+{
+	
 }
 
 void GUITestState::on_mouse_button(const SDL_MouseButtonEvent &event)

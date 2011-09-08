@@ -56,6 +56,8 @@ namespace GUISystem {
         void render(); //Short hand for calling renderAllObjects
         
         void renderContext(Context* contextToRender); //Render a context on the screen
+		
+		static void renderCurrentContext();
         
 #pragma mark Widget Methods
 		

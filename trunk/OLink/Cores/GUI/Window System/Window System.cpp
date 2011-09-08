@@ -121,7 +121,7 @@ namespace GUISystem {
     
     void Window_System::renderAllObjects()
     {
-		if (currentContext == NULL)
+		if (Window_System::currentContext == NULL)
 			return;
 		
         for (int i = 0;i < Window_System::currentContext->objects.size();i++)
@@ -144,6 +144,26 @@ namespace GUISystem {
 		
 		Window_System::currentContext = oldContext;
     }
+	
+	void Window_System::renderCurrentContext()
+	{
+		if (Window_System::currentContext == NULL)
+			return;
+		
+        for (int i = 0;i < Window_System::currentContext->objects.size();i++)
+		{
+			Zeni::Point2f cords = Window_System::currentContext->objects[i]->getCoordinates();
+			
+			Zeni::Point2f toMoveBy(0.0f, 0.0f);
+			
+			if (currentContext != NULL)
+				toMoveBy = currentContext->UpperLeft;
+			
+			Zeni::Point2f placeToRenderAt(cords.x + toMoveBy.x, cords.y + toMoveBy.y);
+			
+			Window_System::currentContext->objects[i]->renderAt(placeToRenderAt);
+		}
+	}
 	
 #pragma mark Widget Methods
 	

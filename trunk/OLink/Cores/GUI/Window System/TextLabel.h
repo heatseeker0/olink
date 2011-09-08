@@ -7,7 +7,7 @@
 //
 
 #ifndef TextLabel_H
-#define TextLabel_H
+#define TextLabel_H 1
 
 #include "zenilib.h"
 
