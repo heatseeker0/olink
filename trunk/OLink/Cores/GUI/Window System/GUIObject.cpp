@@ -71,7 +71,7 @@ namespace GUISystem {
         m_coord = newCoords;
     }
     
-    std::string GUIObject::getUID()
+    std::string GUIObject::getUID() const
     {
         return m_uniqueIdentifier;
     }
@@ -90,4 +90,16 @@ namespace GUISystem {
         //Set our coords to these to move us TO a point
         m_coord = coordToMoveTo;
     }
+	
+#pragma mark Comparison Operators
+	
+	bool GUIObject::operator ==(const GUIObject& b) const
+	{
+		return (this->getUID() == b.getUID());
+	}
+	
+	bool GUIObject::operator !=(const GUIObject& b) const
+	{
+		return !(*this == b);
+	}
 }

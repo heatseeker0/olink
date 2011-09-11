@@ -22,15 +22,15 @@ namespace GUISystem {
         {
         public:
             //See Widget.h/Text_Button for more info about each one.
-            virtual void button_hover(Button *whichButton) = 0;
-            virtual void button_unhover(Button *whichButton) = 0;
+            virtual void button_hover(Button *whichButton) {};
+            virtual void button_unhover(Button *whichButton) {};
             
-            virtual void button_click(Button *whichButton) = 0;
-            virtual void button_stray(Button *whichButton) = 0;
-            virtual void button_unstray(Button *whichButton) = 0;
+            virtual void button_click(Button *whichButton) {};
+            virtual void button_stray(Button *whichButton) {};
+            virtual void button_unstray(Button *whichButton) {};
             
-            virtual void button_accept(Button *whichButton) = 0;
-            virtual void button_reject(Button *whichButton) = 0;
+            virtual void button_accept(Button *whichButton) {};
+            virtual void button_reject(Button *whichButton) {};
         };
         
 	private:

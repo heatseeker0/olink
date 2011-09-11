@@ -26,7 +26,7 @@ namespace GUISystem {
         Zeni::Point2f getCoordinates(); //Get the coord variable
         void setCoordinates(Zeni::Point2f UpperLeft) __attribute__ ((deprecated)); //Set the coord variable.  You should probably use moveTo for more clarity but it's there as a generic setter
         
-        std::string getUID();
+        std::string getUID() const;
         
 #pragma mark movement methods
         
@@ -38,6 +38,11 @@ namespace GUISystem {
         virtual void renderObject() = 0; //Every sub class needs to have a render method!
         virtual void renderAt(Zeni::Point2f UpperLeft) = 0; //Render method to render at a specific point, used for adjusting if for example the object is in a window	
 		virtual Zeni::Widget *getWidget() = 0;
+		
+#pragma mark Comparison Operators
+		
+		bool operator ==(const GUIObject& b) const; 
+		bool operator !=(const GUIObject& b) const;	
 		
     private:
         std::string m_uniqueIdentifier; //Unique identifier to identify this object as unique. ( Unix timestamp when object was created + :randomnumber should be unique )

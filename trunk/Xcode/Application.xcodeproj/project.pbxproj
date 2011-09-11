@@ -15,6 +15,7 @@
 		4DDBF1B314127BAA001A2671 /* Window System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AE14127BAA001A2671 /* Window System.cpp */; };
 		4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1B014127BAA001A2671 /* GUIObject.cpp */; };
 		4DDBF1B514127BAA001A2671 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1B214127BAA001A2671 /* Button.cpp */; };
+		4DEAD97B1419B58000033AD5 /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAD9791419B58000033AD5 /* Window.cpp */; };
 		D34777CF13EFB45900212482 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D34777CD13EFB45900212482 /* InfoPlist.strings */; };
 		D34777D813EFB5DE00212482 /* zeni.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D34777C813EFB45900212482 /* zeni.framework */; };
 		D34777D913EFB5E000212482 /* zeni.framework in Resources */ = {isa = PBXBuildFile; fileRef = D34777C813EFB45900212482 /* zeni.framework */; };
@@ -223,6 +224,8 @@
 		4DDBF1B014127BAA001A2671 /* GUIObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUIObject.cpp; path = "../OLink/Cores/GUI/Window System/GUIObject.cpp"; sourceTree = SOURCE_ROOT; };
 		4DDBF1B114127BAA001A2671 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = "../OLink/Cores/GUI/Window System/Button.h"; sourceTree = SOURCE_ROOT; };
 		4DDBF1B214127BAA001A2671 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = "../OLink/Cores/GUI/Window System/Button.cpp"; sourceTree = SOURCE_ROOT; };
+		4DEAD9791419B58000033AD5 /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Window.cpp; path = "../OLink/Cores/GUI/Window System/Window.cpp"; sourceTree = SOURCE_ROOT; };
+		4DEAD97A1419B58000033AD5 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Window.h; path = "../OLink/Cores/GUI/Window System/Window.h"; sourceTree = SOURCE_ROOT; };
 		D34777C813EFB45900212482 /* zeni.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = zeni.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D34777CC13EFB45900212482 /* zeni-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "zeni-Info.plist"; sourceTree = "<group>"; };
 		D34777CE13EFB45900212482 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -506,6 +509,8 @@
 				4DDBF1B214127BAA001A2671 /* Button.cpp */,
 				4D160086141417680003E69C /* TextLabel.cpp */,
 				4D160088141417900003E69C /* TextLabel.h */,
+				4DEAD9791419B58000033AD5 /* Window.cpp */,
+				4DEAD97A1419B58000033AD5 /* Window.h */,
 			);
 			name = "Window System";
 			path = ../include/OLink;
@@ -1321,6 +1326,7 @@
 				4D160093141424550003E69C /* Slider.cpp in Sources */,
 				4D160094141424550003E69C /* RadioButton.cpp in Sources */,
 				4D160096141424550003E69C /* CheckBox.cpp in Sources */,
+				4DEAD97B1419B58000033AD5 /* Window.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

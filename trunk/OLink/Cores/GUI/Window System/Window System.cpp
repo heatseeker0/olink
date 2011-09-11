@@ -13,7 +13,7 @@ namespace GUISystem {
 	Context *Window_System::currentContext;
     
 #pragma mark Initialization Methods
-    Window_System::Window_System(Zeni::Point2f screen)
+    Window_System::Window_System(std::pair<Zeni::Point2f, Zeni::Point2f> screen)
     {
 		this->screenSize = screen;
 		
@@ -21,6 +21,9 @@ namespace GUISystem {
 			this->createNewCurrentContext();
 		else
 			m_Context = new Context;
+		
+		m_Context->UpperLeft = screen.first;
+		m_Context->LowerRight = screen.second;
 		
 		busyWidget = 0;
 		isWidgetBusy = false;
@@ -58,8 +61,8 @@ namespace GUISystem {
 		Context* newCurrentContext = new Context;
 		newCurrentContext->UpperLeft.x = 0.0f;
 		newCurrentContext->UpperLeft.y = 0.0f;
-		newCurrentContext->LowerRight.x = screenSize.x;
-		newCurrentContext->LowerRight.y = screenSize.y;
+		newCurrentContext->LowerRight.x = screenSize.second.x;
+		newCurrentContext->LowerRight.y = screenSize.second.y;
 		
 		Window_System::currentContext = newCurrentContext;
 		
@@ -70,6 +73,12 @@ namespace GUISystem {
     
     void Window_System::addObject(GUIObject *object)
     {
+		for (int i = 0;i < m_Context->objects.size();i++)
+        {
+            if (m_Context->objects[i]->getUID() == object->getUID())
+				return;
+		}
+		
         m_Context->objects.push_back(object); 
 	}
     
@@ -88,6 +97,12 @@ namespace GUISystem {
     
     void Window_System::addObject(Context *contextToAddTo, GUIObject *object)
     {
+		for (int i = 0;i < contextToAddTo->objects.size();i++)
+        {
+            if (contextToAddTo->objects[i]->getUID() == object->getUID())
+				return;
+		}
+		
         contextToAddTo->objects.push_back(object); 
     }
     
@@ -241,7 +256,7 @@ namespace GUISystem {
 	
 	void Window_System::perform_logic()
 	{
-		m_projector = Zeni::Projector2D(std::pair<Zeni::Point2f, Zeni::Point2f>(Zeni::Point2f(0.0f, 0.0f), screenSize), Zeni::get_Video().get_viewport());
+		m_projector = Zeni::Projector2D(std::pair<Zeni::Point2f, Zeni::Point2f>(Zeni::Point2f(0.0f, 0.0f), screenSize.second), Zeni::get_Video().get_viewport());
 		
 		for(std::vector<GUIObject *>::iterator it = currentContext->objects.begin(); it != currentContext->objects.end(); ++it)
 			(*it)->getWidget()->perform_logic();
