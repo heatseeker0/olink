@@ -13,16 +13,22 @@
 #include <sstream>
 
 GUITestState::GUITestState()
-: screen(Zeni::Point2f(get_Window().get_width(), get_Window().get_height())),
+: screen(std::pair<Zeni::Point2f, Zeni::Point2f>(Zeni::Point2f(0.0f, 0.0f) , Zeni::Point2f(get_Window().get_width(), get_Window().get_height()))),
 buttonToAdd("Click me!", Zeni::Point2f(10.0f, 10.0f), Zeni::Point2f(100.0f, 50.0f), *this),
 label("I am a test label", Zeni::Point2f(100.0f, 100.0f), Zeni::Point2f(150.0f, 50.0f)),
 checkBox(Zeni::Point2f(500.0f, 100.0f), Zeni::Point2f(50.0f, 50.0f), *this),
-slider(Zeni::Point2f(50.0f, 400.0f), Zeni::Point2f(50.0f, 450.0f), 15.0f, *this)
+slider(Zeni::Point2f(50.0f, 400.0f), Zeni::Point2f(50.0f, 450.0f), 15.0f, *this),
+radioSet(),
+radio1(radioSet, Zeni::Point2f(200.0f, 200.0f), Zeni::Point2f(50.0f, 50.0f), *this),
+radio2(radioSet, Zeni::Point2f(275.0f, 200.0f), Zeni::Point2f(50.0f, 50.0f), *this)
 {
 	screen.addObject(&buttonToAdd);
 	screen.addObject(&label);
 	screen.addObject(&checkBox);
 	screen.addObject(&slider);
+	screen.addObject(&radioSet);
+	screen.addObject(&radio1);
+	screen.addObject(&radio2);
 	
 	screen.setCurrentContextToSelf();
 }
@@ -43,31 +49,6 @@ void GUITestState::render()
 	screen.render();
 }
 
-void GUITestState::button_hover(Button *whichButton)
-{
-	//Do nothing
-}
-
-void GUITestState::button_unhover(Button *whichButton)
-{
-	//Do nothing
-}
-
-void GUITestState::button_click(Button *whichButton)
-{
-	//Do nothing
-}
-
-void GUITestState::button_stray(Button *whichButton)
-{
-	//Do nothing
-}
-
-void GUITestState::button_unstray(Button *whichButton)
-{
-	//Do nothing
-}
-
 void GUITestState::button_accept(Button *whichButton)
 {
 	//Do nothing
@@ -82,33 +63,7 @@ void GUITestState::button_accept(Button *whichButton)
 	buttonToAdd.setTitle(ss.str());
 }
 
-void GUITestState::button_reject(Button *whichButton)
-{
-	//Do nothing
-}
-
-
 void GUITestState::checkbox_accept(CheckBox *checkBox)
-{
-	
-}
-
-void GUITestState::checkbox_click(CheckBox *checkBox)
-{
-	
-}
-
-void GUITestState::checkbox_stray(CheckBox *checkBox)
-{
-	
-}
-
-void GUITestState::checkbox_unstray(CheckBox *checkBox)
-{
-	
-}
-
-void GUITestState::checkbox_reject(CheckBox *checkBox)
 {
 	
 }
@@ -119,6 +74,11 @@ void GUITestState::slider_slide(GUISystem::Slider *slider)
 }
 
 void GUITestState::slider_accept(GUISystem::Slider *slider)
+{
+	
+}
+
+void GUITestState::radiobutton_accept(RadioButton *radioButton)
 {
 	
 }

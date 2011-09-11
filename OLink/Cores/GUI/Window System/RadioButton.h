@@ -6,46 +6,56 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
-#include "GUIObject.h"
+#include "CheckBox.h"
+
+#include <vector>
 
 namespace GUISystem {
 	
-	/*class RadioButton : public GUIObject
+	class RadioButton;
+	
+	class RadioButton_Set : public GUIObject, public Zeni::Widget
+	{
+		std::vector<RadioButton *> radioButtons;
+		
+	public:
+		RadioButton_Set();
+		~RadioButton_Set();
+		
+		void accept(RadioButton &radioButton);
+		void clear();
+		
+		void lendRadioButton(RadioButton &radioButton);
+		void unlendRadioButton(RadioButton &radioButton);
+		
+		Zeni::Widget *getWidget() { return this; };
+		
+#pragma mark movement methods
+		
+		void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
+        void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
+        
+#pragma mark render methods
+        
+        void renderObject(); //Every sub class needs to have a render method!
+        void renderAt(Zeni::Point2f UpperLeft); //Render method to render at a specific point, used for adjusting if for example the object is in a window
+		
+#pragma mark Widget methods
+		
+		void on_mouse_button(const Zeni::Point2i &pos, const bool &down, const int &button);
+		void on_mouse_motion(const Zeni::Point2i &pos);
+	};
+	
+	class RadioButton : public CheckBox, public CheckBox::CheckBox_Delegate
 	{
 	public:
 		class RadioButton_Delegate {
 		public:
-			virtual void radiobutton_accept(RadioButton *radioButton) = 0;
+			virtual void radiobutton_accept(RadioButton *radioButton) {};
 		};
 		
 		RadioButton_Delegate &delegate;
-		
-	private:
-		class Internal_RadioButton : public Zeni::Radio_Button
-		{
-			RadioButton_Delegate &delegate;
-			
-			RadioButton *radioButton;
-		public:
-			Internal_RadioButton(RadioButton_Set &radioButton_Set,
-								 const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size,
-								 RadioButton_Delegate &newDelegate,
-								 RadioButton *radioButton)
-			: Zeni::Radio_Button((*radioButton_Set.getRadioButtonSet()), UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y)),
-			delegate(newDelegate)
-			{
-				this->radioButton = radioButton;
-			}
-			
-			void on_accept()
-			{
-				delegate.radiobutton_accept(radioButton);
-			}
-		};
-		
-		Internal_RadioButton internalRadioButton;
-		
-		Zeni::Point2f Size;
+		RadioButton_Set &radioButton_Set;
 		
 	public:
 #pragma mark Initialization
@@ -54,40 +64,15 @@ namespace GUISystem {
 					RadioButton_Delegate &delegate);
 		~RadioButton();
 		
-#pragma mark Getters & Setters		
-		Zeni::Widget *getWidget() { return &internalRadioButton; };
+#pragma mark CheckBox Delegate methods
 		
-#pragma mark movement methods
+		void checkbox_accept(CheckBox *checkBox);
 		
-		void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
-        void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
-        
-#pragma mark render methods
-        
-        void renderObject(); //Every sub class needs to have a render method!
-        void renderAt(Zeni::Point2f UpperLeft); //Render method to render at a specific point, used for adjusting if for example the object is in a window
+		void checkbox_click(CheckBox *checkBox);
+		
+		void checkbox_stray(CheckBox *checkBox);
+		void checkbox_unstray(CheckBox *checkBox);
+		
+		void checkbox_reject(CheckBox *checkBox);
 	};
-	
-	class RadioButton_Set : public GUIObject
-	{
-		Zeni::Radio_Button_Set internalRadioButtonSet;
-		
-	public:
-		void accept(RadioButton &radioButton);
-		void clear();
-		
-		Zeni::Widget *getWidget() { return &internalRadioButtonSet; };
-		Zeni::Radio_Button_Set* getRadioButtonSet() { return &internalRadioButtonSet; }
-		
-#pragma mark movement methods
-		
-		void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
-        void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
-        
-#pragma mark render methods
-        
-        void renderObject(); //Every sub class needs to have a render method!
-        void renderAt(Zeni::Point2f UpperLeft); //Render method to render at a specific point, used for adjusting if for example the object is in a window
-	};*/
-	
 }

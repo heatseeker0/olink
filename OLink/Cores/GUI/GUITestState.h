@@ -15,13 +15,14 @@
 #include "Window System/TextLabel.h"
 #include "Window System/CheckBox.h"
 #include "Window System/Slider.h"
+#include "Window System/RadioButton.h"
 
 #include <utility>
 
 using namespace GUISystem;
 using namespace Zeni;
 
-class GUITestState : public Gamestate_Base, public Button::Button_Delegate, public CheckBox::CheckBox_Delegate, public GUISystem::Slider::Slider_Delegate
+class GUITestState : public Gamestate_Base, public Button::Button_Delegate, public CheckBox::CheckBox_Delegate, public GUISystem::Slider::Slider_Delegate, public GUISystem::RadioButton::RadioButton_Delegate
 {
 public:
     GUITestState();
@@ -34,32 +35,20 @@ public:
 	void perform_logic();
 	
 #pragma mark Button Delegate Methods
-	
-	void button_hover(Button *whichButton);
-	void button_unhover(Button *whichButton);
-	
-	void button_click(Button *whichButton);
-	void button_stray(Button *whichButton);
-	void button_unstray(Button *whichButton);
-	
 	void button_accept(Button *whichButton);
-	void button_reject(Button *whichButton);
 	
 #pragma mark CheckBox Delegate Methods
 	
 	void checkbox_accept(CheckBox *checkBox);
 	
-	void checkbox_click(CheckBox *checkBox);
-	
-	void checkbox_stray(CheckBox *checkBox);
-	void checkbox_unstray(CheckBox *checkBox);
-	
-	void checkbox_reject(CheckBox *checkBox);
-	
 #pragma mark Slider Delegate Methods
 	
 	void slider_slide(GUISystem::Slider *slider);
 	void slider_accept(GUISystem::Slider *slider);
+	
+#pragma mark RadioButton Delegate Methods
+	
+	void radiobutton_accept(RadioButton *radioButton);
 	
 private:
     GUISystem::Window_System screen;
@@ -67,6 +56,9 @@ private:
 	GUISystem::TextLabel label;
 	GUISystem::CheckBox checkBox;
 	GUISystem::Slider slider;
+	GUISystem::RadioButton_Set radioSet;
+	GUISystem::RadioButton radio1;
+	GUISystem::RadioButton radio2;
 };
 
 #endif

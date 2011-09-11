@@ -27,7 +27,7 @@ namespace GUISystem {
     {
     public:
 #pragma mark Initialization Methods
-        Window_System(Zeni::Point2f screen); //Initialize the system
+        Window_System(std::pair<Zeni::Point2f, Zeni::Point2f> screen); //Initialize the system
         ~Window_System(); //Dealloc the system
         
 #pragma mark Context Methods
@@ -35,7 +35,7 @@ namespace GUISystem {
         void setCurrentContextToSelf(); //Short hand for calling setCurrentContext(getContext())
         void setCurrentContext(Context* newContext); //Set the current context to the given one
         
-        Context* getCurrentContext(); //Get the current context (being used to render)
+        static Context* getCurrentContext(); //Get the current context (being used to render)
         Context* getContext(); //Get this instance of the window system's context
 		
 		void createNewCurrentContext();
@@ -70,12 +70,10 @@ namespace GUISystem {
         static Context *currentContext; //Global current context which is used to render the screen
         
         Context *m_Context; //Context localized to an instance of a window system
-        
-        Zeni::Widgets m_widgets;
-        
+                
         Zeni::Projector2D m_projector;
 		
-		Zeni::Point2f screenSize;
+		std::pair<Zeni::Point2f, Zeni::Point2f> screenSize;
 		
 		bool isWidgetBusy;
 		Zeni::Widget *busyWidget;

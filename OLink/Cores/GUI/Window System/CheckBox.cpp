@@ -11,9 +11,9 @@
 namespace GUISystem {
 	
 #pragma mark Initialization
-	CheckBox::CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate &newDelegate)
+	CheckBox::CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate &newDelegate, bool radioButton)
 	: GUIObject(UpperLeft),
-	internalCheckBox(UpperLeft, Size, newDelegate, this),
+	internalCheckBox(UpperLeft, Size, newDelegate, this, radioButton),
 	delegate(newDelegate)
 	{
 		this->Size = Size;
@@ -25,6 +25,11 @@ namespace GUISystem {
 	bool CheckBox::isChecked()
 	{
 		return internalCheckBox.is_checked();
+	}
+	
+	void CheckBox::setChecked(bool checked)
+	{
+		internalCheckBox.set_checked(checked);
 	}
 	
 #pragma mark movement methods

@@ -17,8 +17,8 @@ namespace GUISystem {
 		class Slider_Delegate
 		{
 		public:
-			virtual void slider_slide(GUISystem::Slider *slider) = 0;
-			virtual void slider_accept(GUISystem::Slider *slider) = 0;
+			virtual void slider_slide(GUISystem::Slider *slider) {};
+			virtual void slider_accept(GUISystem::Slider *slider) {};
 		};
 		
 	private:
@@ -38,11 +38,13 @@ namespace GUISystem {
 			
 			void on_accept()
 			{
+				Slider::on_accept();
 				this->delegate.slider_accept(this->slider);
 			}
 			
 			void on_slide()
 			{
+				Slider::on_slide();
 				this->delegate.slider_slide(this->slider);
 			}
 		};
