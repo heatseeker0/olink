@@ -11,7 +11,7 @@
 namespace GUISystem {
 	
 	RadioButton_Set::RadioButton_Set()
-	: GUIObject(Zeni::Point2f(0.0f, 0.0f))
+	: GUIObject(Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(0.0f, 0.0f))
 	{
 	}
 	
@@ -76,12 +76,12 @@ namespace GUISystem {
 #pragma mark Initialization
 	RadioButton::RadioButton(RadioButton_Set &newRadioButton_Set,
 				const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size,
-				RadioButton_Delegate &newDelegate)
-	: CheckBox::CheckBox(UpperLeft, Size, *this, true),
-	delegate(newDelegate),
+				RadioButton_Delegate *newDelegate)
+	: CheckBox::CheckBox(UpperLeft, Size, this, true),
 	radioButton_Set(newRadioButton_Set)
 	{
 		newRadioButton_Set.lendRadioButton(*this);
+		this->delegate = newDelegate;
 	}
 	
 	RadioButton::~RadioButton()
@@ -94,7 +94,7 @@ namespace GUISystem {
 	{
 		radioButton_Set.accept(*this);
 		
-		this->delegate.radiobutton_accept(this);
+		this->delegate->radiobutton_accept(this);
 	}
 	
 	void RadioButton::checkbox_click(CheckBox *checkBox) {}

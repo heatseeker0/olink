@@ -64,4 +64,36 @@ The following things are unsupported:
     </file>
   </sprite_token>
   -->
+	<BaseImageDemo>
+		<is_sprite>0</is_sprite>
+		<filepath>Textures/DemoButtonBaseImage.png</filepath>
+		<tile>0</tile>
+	</BaseImageDemo>
+	<BaseImageDemoBig>
+		<is_sprite>0</is_sprite>
+		<filepath>Textures/DemoButtonBaseImage.png</filepath>
+		<tile>0</tile>
+	</BaseImageDemoBig>
+	
+	<HoverImageDemo>
+		<is_sprite>0</is_sprite>
+		<filepath>Textures/DemoButtonBaseImageHover.png</filepath>
+		<tile>0</tile>
+	</HoverImageDemo>
+	<HoverImageDemoBig>
+		<is_sprite>0</is_sprite>
+		<filepath>Textures/DemoButtonBaseImageHover.png</filepath>
+		<tile>0</tile>
+	</HoverImageDemoBig>
+	
+	<ClickedImageDemo>
+		<is_sprite>0</is_sprite>
+		<filepath>Textures/DemoButtonBaseImageClicked.png</filepath>
+		<tile>0</tile>
+	</ClickedImageDemo>
+	<ClickedImageDemoBig>
+		<is_sprite>0</is_sprite>
+		<filepath>Textures/DemoButtonBaseImageClicked.png</filepath>
+		<tile>0</tile>
+	</ClickedImageDemoBig>
 </Textures>

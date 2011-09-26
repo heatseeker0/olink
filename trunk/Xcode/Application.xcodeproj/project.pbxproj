@@ -11,6 +11,12 @@
 		4D160093141424550003E69C /* Slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D16008C141424540003E69C /* Slider.cpp */; };
 		4D160094141424550003E69C /* RadioButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D16008E141424540003E69C /* RadioButton.cpp */; };
 		4D160096141424550003E69C /* CheckBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D160092141424550003E69C /* CheckBox.cpp */; };
+		4D2DC8F814283F6300F23C2C /* ImageLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D2DC8F714283F6200F23C2C /* ImageLabel.cpp */; };
+		4D74D303141F98CB003F832B /* colors.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D74D2FE141F98CB003F832B /* colors.xml */; };
+		4D74D304141F98CB003F832B /* fonts.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D74D2FF141F98CB003F832B /* fonts.xml */; };
+		4D74D305141F98CB003F832B /* sounds.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D74D300141F98CB003F832B /* sounds.xml */; };
+		4D74D306141F98CB003F832B /* textures.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D74D301141F98CB003F832B /* textures.xml */; };
+		4D74D307141F98CB003F832B /* zenilib.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D74D302141F98CB003F832B /* zenilib.xml */; };
 		4DDBF1AC14127B99001A2671 /* GUITestState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AB14127B99001A2671 /* GUITestState.cpp */; };
 		4DDBF1B314127BAA001A2671 /* Window System.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1AE14127BAA001A2671 /* Window System.cpp */; };
 		4DDBF1B414127BAA001A2671 /* GUIObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBF1B014127BAA001A2671 /* GUIObject.cpp */; };
@@ -215,6 +221,13 @@
 		4D16008E141424540003E69C /* RadioButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RadioButton.cpp; path = "../OLink/Cores/GUI/Window System/RadioButton.cpp"; sourceTree = SOURCE_ROOT; };
 		4D160091141424540003E69C /* CheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CheckBox.h; path = "../OLink/Cores/GUI/Window System/CheckBox.h"; sourceTree = SOURCE_ROOT; };
 		4D160092141424550003E69C /* CheckBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBox.cpp; path = "../OLink/Cores/GUI/Window System/CheckBox.cpp"; sourceTree = SOURCE_ROOT; };
+		4D2DC8F714283F6200F23C2C /* ImageLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ImageLabel.cpp; path = "../OLink/Cores/GUI/Window System/ImageLabel.cpp"; sourceTree = SOURCE_ROOT; };
+		4D2DC8F914283F8000F23C2C /* ImageLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageLabel.h; path = "../OLink/Cores/GUI/Window System/ImageLabel.h"; sourceTree = SOURCE_ROOT; };
+		4D74D2FE141F98CB003F832B /* colors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = colors.xml; sourceTree = "<group>"; };
+		4D74D2FF141F98CB003F832B /* fonts.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fonts.xml; sourceTree = "<group>"; };
+		4D74D300141F98CB003F832B /* sounds.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sounds.xml; sourceTree = "<group>"; };
+		4D74D301141F98CB003F832B /* textures.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = textures.xml; sourceTree = "<group>"; };
+		4D74D302141F98CB003F832B /* zenilib.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = zenilib.xml; sourceTree = "<group>"; };
 		4DDB04E71411C92A002535F7 /* Application.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Application.entitlements; sourceTree = "<group>"; };
 		4DDBF1AA14127B99001A2671 /* GUITestState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUITestState.h; path = ../OLink/Cores/GUI/GUITestState.h; sourceTree = SOURCE_ROOT; };
 		4DDBF1AB14127B99001A2671 /* GUITestState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GUITestState.cpp; path = ../OLink/Cores/GUI/GUITestState.cpp; sourceTree = SOURCE_ROOT; };
@@ -492,6 +505,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D74D2FD141F98CB003F832B /* Configuration Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D74D2FE141F98CB003F832B /* colors.xml */,
+				4D74D2FF141F98CB003F832B /* fonts.xml */,
+				4D74D300141F98CB003F832B /* sounds.xml */,
+				4D74D301141F98CB003F832B /* textures.xml */,
+				4D74D302141F98CB003F832B /* zenilib.xml */,
+			);
+			name = "Configuration Files";
+			path = ../config;
+			sourceTree = "<group>";
+		};
 		4DDB04E31411BE0B002535F7 /* Window System */ = {
 			isa = PBXGroup;
 			children = (
@@ -511,6 +537,8 @@
 				4D160088141417900003E69C /* TextLabel.h */,
 				4DEAD9791419B58000033AD5 /* Window.cpp */,
 				4DEAD97A1419B58000033AD5 /* Window.h */,
+				4D2DC8F714283F6200F23C2C /* ImageLabel.cpp */,
+				4D2DC8F914283F8000F23C2C /* ImageLabel.h */,
 			);
 			name = "Window System";
 			path = ../include/OLink;
@@ -700,6 +728,7 @@
 			isa = PBXGroup;
 			children = (
 				D398AD2313EFA182004A17A0 /* icon_mac.png */,
+				4D74D2FD141F98CB003F832B /* Configuration Files */,
 				4DDBF19F141277C1001A2671 /* OLink */,
 				D398AB0913EF98E7004A17A0 /* Application */,
 				D34777CA13EFB45900212482 /* zeni */,
@@ -1226,6 +1255,11 @@
 				D3822BC413F0E9F000208551 /* zeni_net.framework in Resources */,
 				D3822BC513F0E9F000208551 /* zeni_rest.framework in Resources */,
 				D398AD2413EFA182004A17A0 /* icon_mac.png in Resources */,
+				4D74D303141F98CB003F832B /* colors.xml in Resources */,
+				4D74D304141F98CB003F832B /* fonts.xml in Resources */,
+				4D74D305141F98CB003F832B /* sounds.xml in Resources */,
+				4D74D306141F98CB003F832B /* textures.xml in Resources */,
+				4D74D307141F98CB003F832B /* zenilib.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1327,6 +1361,7 @@
 				4D160094141424550003E69C /* RadioButton.cpp in Sources */,
 				4D160096141424550003E69C /* CheckBox.cpp in Sources */,
 				4DEAD97B1419B58000033AD5 /* Window.cpp in Sources */,
+				4D2DC8F814283F6300F23C2C /* ImageLabel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

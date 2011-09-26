@@ -19,6 +19,8 @@ namespace GUISystem {
 		std::vector<RadioButton *> radioButtons;
 		
 	public:
+#define RadioButton_Set_T 2
+		
 		RadioButton_Set();
 		~RadioButton_Set();
 		
@@ -30,10 +32,7 @@ namespace GUISystem {
 		
 		Zeni::Widget *getWidget() { return this; };
 		
-#pragma mark movement methods
-		
-		void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
-        void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
+		int getType() { return RadioButton_Set_T; };
         
 #pragma mark render methods
         
@@ -54,14 +53,16 @@ namespace GUISystem {
 			virtual void radiobutton_accept(RadioButton *radioButton) {};
 		};
 		
-		RadioButton_Delegate &delegate;
+		RadioButton_Delegate *delegate;
 		RadioButton_Set &radioButton_Set;
 		
 	public:
+#define RadioButton_T 3
+		
 #pragma mark Initialization
 		RadioButton(RadioButton_Set &radioButton_Set,
 					const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size,
-					RadioButton_Delegate &delegate);
+					RadioButton_Delegate *delegate);
 		~RadioButton();
 		
 #pragma mark CheckBox Delegate methods
@@ -74,5 +75,7 @@ namespace GUISystem {
 		void checkbox_unstray(CheckBox *checkBox);
 		
 		void checkbox_reject(CheckBox *checkBox);
+		
+		int getType() { return RadioButton_T; };
 	};
 }
