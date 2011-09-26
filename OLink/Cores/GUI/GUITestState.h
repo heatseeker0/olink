@@ -16,13 +16,15 @@
 #include "Window System/CheckBox.h"
 #include "Window System/Slider.h"
 #include "Window System/RadioButton.h"
+#include "Window System/Window.h"
+#include "Window System/ImageLabel.h"
 
 #include <utility>
 
 using namespace GUISystem;
 using namespace Zeni;
 
-class GUITestState : public Gamestate_Base, public Button::Button_Delegate, public CheckBox::CheckBox_Delegate, public GUISystem::Slider::Slider_Delegate, public GUISystem::RadioButton::RadioButton_Delegate
+class GUITestState : public Gamestate_Base, public Button::Delegate, public CheckBox::CheckBox_Delegate, public GUISystem::Slider::Slider_Delegate, public GUISystem::RadioButton::RadioButton_Delegate, public GUISystem::Window::Window_Delegate
 {
 public:
     GUITestState();
@@ -50,15 +52,27 @@ public:
 	
 	void radiobutton_accept(RadioButton *radioButton);
 	
+#pragma mark Window Delegate Methods
+	
+	void window_close(GUISystem::Window *window);
+
 private:
     GUISystem::Window_System screen;
     GUISystem::Button buttonToAdd;
+	GUISystem::Button *imageButtonToAdd;
+	GUISystem::Button *imageButtonToAddBig;
+	GUISystem::Button *textImageButtonToAdd;
+	GUISystem::Button *colorButtonToAdd;
+	GUISystem::Button *textColorButtonToAdd;
 	GUISystem::TextLabel label;
 	GUISystem::CheckBox checkBox;
 	GUISystem::Slider slider;
 	GUISystem::RadioButton_Set radioSet;
 	GUISystem::RadioButton radio1;
 	GUISystem::RadioButton radio2;
+	GUISystem::Window window;
+	GUISystem::Window textureWindow;
+	GUISystem::ImageLabel imageLabel;
 };
 
 #endif

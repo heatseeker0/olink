@@ -76,7 +76,7 @@ private:
 class Bootstrap {
   class Gamestate_One_Initializer : public Gamestate_Zero_Initializer {
     virtual Gamestate_Base * operator()() {
-      Window::set_title("OLink");
+	  Zeni::Window::set_title("OLink");
 
       get_Joysticks();
       get_Video();

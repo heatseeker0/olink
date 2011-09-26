@@ -11,8 +11,8 @@
 namespace GUISystem {
 	
 #pragma mark Initialization
-	Slider::Slider(Zeni::Point2f endpointa, Zeni::Point2f endpointb, float radius, Slider_Delegate &delegate)
-	: GUIObject(endpointa),
+	Slider::Slider(Zeni::Point2f endpointa, Zeni::Point2f endpointb, float radius, Slider_Delegate *delegate)
+	: GUIObject(endpointa, Zeni::Point2f(endpointb.x - endpointa.x, endpointb.y - endpointa.y)),
 	internalSlider(endpointa, endpointb, radius, delegate, this)
 	{
 	}
@@ -25,7 +25,7 @@ namespace GUISystem {
 		internalSlider.set_slider_position(position);
 	}
 	
-	void Slider::setDelegate(Slider_Delegate &delegate)
+	void Slider::setDelegate(Slider_Delegate *delegate)
 	{
 		internalSlider.delegate = delegate;
 	}

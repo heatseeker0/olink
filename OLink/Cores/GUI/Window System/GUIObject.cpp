@@ -16,40 +16,24 @@ namespace GUISystem {
     
 #pragma mark Initialization Methods
 
-    GUIObject::GUIObject(Zeni::Point2f coord) //Initialize the object with the coordinates coord
+    GUIObject::GUIObject(Zeni::Point2f coord, Zeni::Point2f Size) //Initialize the object with the coordinates coord
     : m_coord(coord)
     {
         using namespace std;
         //Get the current time since the epoch and then make it a string
         
-        //Create the string stream to be used for the transformation from time_t (long) to string
-        stringstream stream;
-        
-        //Construct the holder for the time
-        time_t currentTime;
-        //Set the holder
-        time( &currentTime );
-        //Add it to the string stream
-        stream << currentTime;
-        
-        //Create the unique ID and set it to the string
-        string uniqueID = stream.str();
-        //Add a colon which preceeds the random number
-        uniqueID += ":";
-        
-        //Flush the stream to clear the contents before we use it again
-        stream.flush();
-        
-        //Set the seed for the random generator
-        srand( int(time( NULL )) );
-        //Add a random number to the stream
-        stream << rand() % RAND_MAX;
-        
-        //Add that random number to the unique identifier to compelte it
-        uniqueID += stream.str();
+        static long long objectID = 0;
+		
+		stringstream ss;
+		
+		ss << ++objectID;
         
         //Set the member variable to our newly generated ID
-        m_uniqueIdentifier = uniqueID;
+        m_uniqueIdentifier = ss.str();
+		
+		windowSystem = NULL;
+		
+		this->Size = Size;
     }
     
     GUIObject::~GUIObject()

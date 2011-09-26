@@ -42,7 +42,7 @@
   impair the game playing experience if performance is very poor.
 -->
 <Zenilib>
-    <Uniqname>zenilib</Uniqname>
+    <Uniqname>OLink</Uniqname>
     <Textures>
         <Anisotropy>0</Anisotropy>
         <Bilinear_Filtering>1</Bilinear_Filtering>
@@ -56,8 +56,8 @@
         <Full_Screen>0</Full_Screen>
         <Multisampling>0</Multisampling>
         <Resolution>
-            <Width>640</Width>
-            <Height>480</Height>
+            <Width>1024</Width>
+            <Height>768</Height>
         </Resolution>
         <Vertical_Sync>1</Vertical_Sync>
     </Video>

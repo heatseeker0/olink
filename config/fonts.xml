@@ -67,9 +67,5 @@ Only TrueType fonts are supported.
         <height>16</height>
         <bold>0</bold>
         <italics>0</italics>
-        <virtual_screen>
-            <width>800</width>
-            <height>600</height>
-        </virtual_screen>
-    </DefaultFont>
+  </DefaultFont>
 </Fonts>

@@ -9,7 +9,7 @@
 #ifndef CheckBox_H
 #define CheckBox_H 1
 
-#include <zenilib.h>
+#include "zenilib.h"
 
 #include "GUIObject.h"
 
@@ -38,14 +38,14 @@ namespace GUISystem {
 			Internal_CheckBox(const Internal_CheckBox &);
 			Internal_CheckBox & operator=(const Internal_CheckBox &);
 			
-			CheckBox_Delegate &delegate;
+			CheckBox_Delegate *delegate;
 			
 			CheckBox *checkBox;
 			
 			bool isRadio;
 			
 		public:
-			Internal_CheckBox(const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size, CheckBox_Delegate &newDelegate, CheckBox *checkBox, bool radioButton = false)
+			Internal_CheckBox(const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size, CheckBox_Delegate *newDelegate, CheckBox *checkBox, bool radioButton = false)
 			: Check_Box(UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y)),
 			delegate(newDelegate)
 			{
@@ -57,7 +57,7 @@ namespace GUISystem {
 				if (!isRadio || (isRadio && !this->is_checked()))
 				{
 					Check_Box::on_accept();
-					this->delegate.checkbox_accept(checkBox);
+					this->delegate->checkbox_accept(checkBox);
 				}
 			}
 			
@@ -65,41 +65,42 @@ namespace GUISystem {
 				if (!isRadio || (isRadio && !this->is_checked()))
 				{
 					Check_Box::on_click();
-					this->delegate.checkbox_click(checkBox);
+					this->delegate->checkbox_click(checkBox);
 				}
 			}
 			
 			void on_unstray() {
 				Check_Box::on_unstray();
-				this->delegate.checkbox_unstray(checkBox);
+				this->delegate->checkbox_unstray(checkBox);
 			}
 			
 			void on_reject() {
 				Check_Box::on_reject();
-				this->delegate.checkbox_reject(checkBox);
+				this->delegate->checkbox_reject(checkBox);
 			}
 			
 			void on_stray() {
 				Check_Box::on_stray();
-				this->delegate.checkbox_stray(checkBox);
+				this->delegate->checkbox_stray(checkBox);
 			}
 		};
 		
-		CheckBox_Delegate &delegate;
+		CheckBox_Delegate *delegate;
 		
 		Internal_CheckBox internalCheckBox;
-		
-		Zeni::Point2f Size;
-		
+				
 	public:
+#define CheckBox_T 4
 		
 #pragma mark Initialization
-        CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate &delegate, bool radioButton = false); //Initialize the text label with a Title and a point to draw from
+        CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate *delegate, bool radioButton = false); //Initialize the text label with a Title and a point to draw from
         ~CheckBox(); //Dealloc
         
 #pragma mark Getters & Setters
         bool isChecked(); //Is the check box checked?
 		void setChecked(bool checked);
+		
+		int getType() { return CheckBox_T; };
 		
 #pragma mark movement methods
         

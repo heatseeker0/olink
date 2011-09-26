@@ -47,6 +47,8 @@ namespace GUISystem {
         
         void addObject(Context *contextToAddTo, GUIObject *object); //Add an object to the context contextToAddTo
         void removeObject(Context *contextToRemoveFrom, GUIObject *object); //Remove an object from the context contextToRemoveFrom
+		
+		void moveObjectToForeground(GUIObject *object);
         
 #pragma mark Render Methods
         

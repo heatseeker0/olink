@@ -11,12 +11,11 @@
 namespace GUISystem {
 	
 #pragma mark Initialization
-	CheckBox::CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate &newDelegate, bool radioButton)
-	: GUIObject(UpperLeft),
-	internalCheckBox(UpperLeft, Size, newDelegate, this, radioButton),
-	delegate(newDelegate)
+	CheckBox::CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate *newDelegate, bool radioButton)
+	: GUIObject(UpperLeft, Size),
+	internalCheckBox(UpperLeft, Size, newDelegate, this, radioButton)
 	{
-		this->Size = Size;
+		this->delegate = newDelegate;
 	}
 	
 	CheckBox::~CheckBox() {}
@@ -39,7 +38,7 @@ namespace GUISystem {
         this->GUIObject::transform(UpperLeft);
 		
 		this->internalCheckBox.set_upper_left(Zeni::Point2f(this->getCoordinates().x + UpperLeft.x, this->getCoordinates().y + UpperLeft.y));
-		this->internalCheckBox.set_lower_right(Zeni::Point2f(this->getCoordinates().x + UpperLeft.x + this->Size.x, this->getCoordinates().y + UpperLeft.y + this->Size.y));
+		this->internalCheckBox.set_lower_right(Zeni::Point2f(this->getCoordinates().x + UpperLeft.x + this->getSize().x, this->getCoordinates().y + UpperLeft.y + this->getSize().y));
 	}
 	
 	void CheckBox::moveTo(Zeni::Point2f UpperLeft)
@@ -47,7 +46,7 @@ namespace GUISystem {
 		this->GUIObject::moveTo(UpperLeft);
 		
 		this->internalCheckBox.set_upper_left(UpperLeft);
-		this->internalCheckBox.set_lower_right(Zeni::Point2f(UpperLeft.x + this->Size.x, UpperLeft.y + this->Size.y));
+		this->internalCheckBox.set_lower_right(Zeni::Point2f(UpperLeft.x + this->getSize().x, UpperLeft.y + this->getSize().y));
 	}
 	
 #pragma Render methods
