@@ -83,123 +83,85 @@ namespace GUISystem {
 			}
 		};
 		
-		class Internal_TextColorButton : public Zeni::Widget_Button {
+		class Internal_TextColorButton : public Zeni::Widget_Button, public Zeni::Widget_Renderer_Text {
 			Internal_TextColorButton(const Internal_TextColorButton &);
 			Internal_TextColorButton & operator=(const Internal_TextColorButton &);
 			
 			Button *button;
-			
-			class Internal_TextColor_Renderer : public Zeni::Widget_Render_Function
-			{
-				Zeni::Widget_Renderer_Color *colorRenderer;
-				Zeni::Widget_Renderer_Text *textRenderer;
-				
-			public:
-				inline Internal_TextColor_Renderer(Zeni::Widget_Renderer_Text *pointerTextRenderer, Zeni::Widget_Renderer_Color *pointerColorRenderer)
-				{
-					textRenderer = pointerTextRenderer;
-					colorRenderer = pointerColorRenderer;
-				}
-				
-				~Internal_TextColor_Renderer()
-				{
-					delete colorRenderer;
-					delete textRenderer;
-				}
-				
-				/// rect must be of type Widget_Button and Widget_Renderer_Text
-				virtual void render_to(const Widget &widget)
-				{
-					if (colorRenderer != NULL)
-						colorRenderer->render_to(widget);
-					
-					if (textRenderer != NULL)
-						textRenderer->render_to(widget);
-				}
-				
-				virtual Internal_TextColor_Renderer * get_duplicate() const
-				{
-					return new Internal_TextColor_Renderer(textRenderer, colorRenderer);
-				}
-				
-				void setColor(Zeni::Color color)
-				{
-					if (colorRenderer != NULL)
-						colorRenderer->color = color;
-				}
-			};
-			
-			Zeni::Widget_Renderer_Color *colorRenderer;
-			Zeni::Widget_Renderer_Text *textRenderer;
-			
-			Internal_TextColor_Renderer *internalTextColorRenderer;
-			
+
+			Zeni::Widget_Renderer_Tricolor *renderer;
+						
 			Zeni::Color colorsOfTheButton[2];
 			
 			Delegate *delegate;
-						
+			
 		public:
 			Internal_TextColorButton(std::string text, Zeni::Color colorsOfTheButton[2], Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate, Button *button)
-			: Widget_Button(UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y))
+			: Widget_Button(UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y)),
+			Widget_Renderer_Text(Zeni::String("DefaultFont"), Zeni::String(text), Zeni::Color())
 			{
 				this->button = button;
-				
-				this->colorRenderer = new Zeni::Widget_Renderer_Color(colorsOfTheButton[0]);
-				this->textRenderer = new Zeni::Widget_Renderer_Text(Zeni::String("DefaultFont"), Zeni::String(text), Zeni::Color());
-				this->Widget_Button::give_Renderer(new Internal_TextColor_Renderer(this->textRenderer, this->colorRenderer));
+								
+				this->renderer = new Zeni::Widget_Renderer_Tricolor(colorsOfTheButton[0], colorsOfTheButton[2], colorsOfTheButton[1],
+																	Zeni::Color(), Zeni::Color(), Zeni::Color());
+				this->Widget_Button::give_Renderer(this->renderer);
 				
 				this->delegate = newDelegate;
 			}
 			
 			void on_mouse_button(const Zeni::Point2i &pos, const bool &down, const int &button)
-			{}
+			{
+				this->Widget_Button::on_mouse_button(pos, down, button);
+			}
 			
 			void on_mouse_motion(const Zeni::Point2i &pos)
-			{}
+			{
+				this->Widget_Button::on_mouse_motion(pos);
+			}
 			
-			void setColors(Zeni::Color colors[2]) { this->colorsOfTheButton[0] = colors[0]; this->colorsOfTheButton[2] = colors[2]; this->colorsOfTheButton[1] = colors[1]; }
+			void perform_logic()
+			{
+				this->Widget_Button::perform_logic();
+			}
 			
-			void setText(Zeni::String title) { this->textRenderer->text = Zeni::String(title); } 
-			
-			void on_hover() {
-				this->colorRenderer->color = colorsOfTheButton[1];
+			void setColors(Zeni::Color colors[2])
+			{
+				this->renderer->bg_normal = colors[0];
+				this->renderer->bg_clicked = colors[2];
+				this->renderer->bg_hovered_strayed = colors[1];
 				
+				this->colorsOfTheButton[0] = colors[0];
+				this->colorsOfTheButton[2] = colors[2];
+				this->colorsOfTheButton[1] = colors[1];
+			}
+			
+			void setText(Zeni::String title) { this->text = Zeni::String(title); } 
+			
+			void on_hover() {				
 				this->delegate->button_hover(button);
 			}
 			
-			void on_unhover() {				
-				this->colorRenderer->color = colorsOfTheButton[0];
-				
+			void on_unhover() {								
 				this->delegate->button_unhover(button);
 			}
 			
-			void on_click() {	
-				this->colorRenderer->color = colorsOfTheButton[2];
-				
+			void on_click() {					
 				this->delegate->button_click(button);
 			}
 			
-			void on_stray() {				
-				this->colorRenderer->color = colorsOfTheButton[0];
-				
+			void on_stray() {								
 				this->delegate->button_stray(button);
 			}
 			
-			void on_unstray() {		
-				this->colorRenderer->color = colorsOfTheButton[2];
-				
+			void on_unstray() {						
 				this->delegate->button_unstray(button);
 			}
 			
-			void on_accept() {	
-				this->colorRenderer->color = colorsOfTheButton[0];
-				
+			void on_accept() {					
 				this->delegate->button_accept(button);
 			}
 			
-			void on_reject() {	
-				this->colorRenderer->color = colorsOfTheButton[0];
-				
+			void on_reject() {					
 				this->delegate->button_reject(button);
 			}
 		};
