@@ -1564,6 +1564,7 @@
 					"ZENI_REST_EXT=\"\"",
 					_DEBUG,
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../include\"";
 				INFOPLIST_FILE = "zeni/zeni-Info.plist";
 				INSTALL_PATH = "\"$(SRCROOT)/Frameworks\"";
@@ -1607,6 +1608,7 @@
 					"ZENI_REST_EXT=\"\"",
 					NDEBUG,
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../include\"";
 				INFOPLIST_FILE = "zeni/zeni-Info.plist";
 				INSTALL_PATH = "\"$(SRCROOT)/Frameworks\"";

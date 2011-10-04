@@ -33,6 +33,9 @@ namespace GUISystem {
     
     Window_System::~Window_System()
     {
+		if (currentContext == m_Context)
+			currentContext = NULL;
+		
         delete m_Context;
     }
     

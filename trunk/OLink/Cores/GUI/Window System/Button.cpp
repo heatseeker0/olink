@@ -98,8 +98,8 @@ namespace GUISystem {
 		this->internalColorButton = NULL;
 		this->internalTextColorButton = NULL;
 		this->internalTextButton = NULL;
-				
-		this->internalColorButton = new Internal_TextColorButton("", colorsOfTheButton, UpperLeft, Size, newDelegate, this);
+		
+		this->internalColorButton = new Internal_TextColorButton("", colorsOfTheButton, UpperLeft, Size, newDelegate, this);		
 		
 		this->colorsOfTheButton[0] = colorsOfTheButton[0];
 		this->colorsOfTheButton[1] = colorsOfTheButton[1];
@@ -209,7 +209,7 @@ namespace GUISystem {
     }
 	
 	Zeni::Widget* Button::getWidget()
-	{
+	{		
 		if (internalTextButton != NULL)
 			return internalTextButton;
 		else if (internalTextImageButton != NULL)

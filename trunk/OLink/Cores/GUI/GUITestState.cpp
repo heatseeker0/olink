@@ -62,14 +62,12 @@ imageLabel("ClickedImageDemo", Zeni::Point2f(175.0f, 85.0f), Zeni::Point2f(50.0f
 	textColors[2] = Zeni::get_Colors()["red"];
 	
 	colorButtonToAdd = new Button(colors, Zeni::Point2f(50.0f, 235.0f), Zeni::Point2f(50.0f, 50.0f), this);
+	Zeni::Point2i pos(0, 0);
+	colorButtonToAdd->getWidget()->on_mouse_motion(pos);
 	screen.addObject(colorButtonToAdd);
 	
-	//textColorButtonToAdd = new Button("Test!", textColors, Zeni::Point2f(50.0f, 310.0f), Zeni::Point2f(50.0f, 50.0f), this);
+	textColorButtonToAdd = new Button("Test!", textColors, Zeni::Point2f(50.0f, 310.0f), Zeni::Point2f(50.0f, 50.0f), this);
 	//screen.addObject(textColorButtonToAdd);
-			
-	//GUISystem::Window *testwindow = new GUISystem::Window(Zeni::Point2f(575.0f, 10.0f), Zeni::Point2f(100.0f, 100.0f), Zeni::Color(), this);
-	
-	//window.lendObject(testwindow);
 	
 	//screen.addObject(&window);
 	
