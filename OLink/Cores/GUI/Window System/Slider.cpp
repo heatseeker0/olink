@@ -6,11 +6,13 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "Slider.h"
 
 namespace GUISystem {
 	
-#pragma mark Initialization
+// Initialization
 	Slider::Slider(Zeni::Point2f endpointa, Zeni::Point2f endpointb, float radius, Slider_Delegate *delegate)
 	: GUIObject(endpointa, Zeni::Point2f(endpointb.x - endpointa.x, endpointb.y - endpointa.y)),
 	internalSlider(endpointa, endpointb, radius, delegate, this)
@@ -19,7 +21,7 @@ namespace GUISystem {
 	
 	Slider::~Slider() {}
 	
-#pragma mark Getters & Setters
+// Getters & Setters
 	void Slider::setPosition(const float position)
 	{
 		internalSlider.set_slider_position(position);
@@ -30,7 +32,7 @@ namespace GUISystem {
 		internalSlider.delegate = delegate;
 	}
 	
-#pragma mark movement methods
+// movement methods
 	
 	void Slider::transform(Zeni::Point2f UpperLeft)
 	{
@@ -50,7 +52,7 @@ namespace GUISystem {
 		this->internalSlider.set_end_points(UpperLeft, Zeni::Point2f(UpperLeft.x, UpperLeft.y + yBottom));
 	}
 	
-#pragma mark render methods
+// render methods
 	
 	void Slider::renderObject()
 	{

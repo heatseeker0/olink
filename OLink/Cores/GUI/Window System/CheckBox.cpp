@@ -6,11 +6,13 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "CheckBox.h"
 
 namespace GUISystem {
 	
-#pragma mark Initialization
+// Initialization
 	CheckBox::CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate *newDelegate, bool radioButton)
 	: GUIObject(UpperLeft, Size),
 	internalCheckBox(UpperLeft, Size, newDelegate, this, radioButton)
@@ -20,7 +22,7 @@ namespace GUISystem {
 	
 	CheckBox::~CheckBox() {}
 	
-#pragma mark Getters & Setters
+// Getters & Setters
 	bool CheckBox::isChecked()
 	{
 		return internalCheckBox.is_checked();
@@ -31,7 +33,7 @@ namespace GUISystem {
 		internalCheckBox.set_checked(checked);
 	}
 	
-#pragma mark movement methods
+// movement methods
 	
 	void CheckBox::transform(Zeni::Point2f UpperLeft)
 	{
@@ -49,7 +51,7 @@ namespace GUISystem {
 		this->internalCheckBox.set_lower_right(Zeni::Point2f(UpperLeft.x + this->getSize().x, UpperLeft.y + this->getSize().y));
 	}
 	
-#pragma Render methods
+// Render methods
 	void CheckBox::renderAt(Zeni::Point2f UpperLeft)
 	{
 		Zeni::Point2f previousCoords = this->getCoordinates();

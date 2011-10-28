@@ -6,11 +6,13 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "Window.h"
 
 namespace GUISystem {
 	
-#pragma mark Window Class
+// Window Class
 
 	Window::Window(const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size, Zeni::Color color, Window_Delegate *delegate, V_WindowBar *windowBar)
 	: GUIObject(UpperLeft, Size),
@@ -331,7 +333,7 @@ namespace GUISystem {
 		return this;
 	}
 	
-#pragma mark Window_Bar class
+// Window_Bar class
 	
 	Window_Bar::Window_Bar()
 	: GUIObject(Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(0.0f, 0.0f)),
@@ -345,14 +347,14 @@ namespace GUISystem {
 		
 		this->grabbedPositionFromOrigin = Zeni::Point2f(0.0f, 0.0f);
 		
-		Zeni::Color colorsOfTheButtons[2];
+		Zeni::Color colorsOfTheButtons[3];
 		colorsOfTheButtons[0] = Zeni::get_Colors()["black"];
 		colorsOfTheButtons[1] = Zeni::get_Colors()["white"];
 		colorsOfTheButtons[2] = Zeni::get_Colors()["red"];
 		
-		closeButton = new Button(colorsOfTheButtons, Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(8.0f, 8.0f), this);
-		minimizeButton = new Button(colorsOfTheButtons, Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(8.0f, 8.0f), this);
-		maximizeButton = new Button(colorsOfTheButtons, Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(8.0f, 8.0f), this);
+		closeButton = new Button("", Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(8.0f, 8.0f), this);
+		minimizeButton = new Button("", Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(8.0f, 8.0f), this);
+		maximizeButton = new Button("", Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(8.0f, 8.0f), this);
 		
 		maximizedWindowJustNow = false;
 	}

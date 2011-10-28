@@ -8,7 +8,7 @@
 #ifndef WINDOW_SYSTEM_H
 #define WINDOW_SYSTEM_H 1
 
-#include "zenilib.h"
+#include <zenilib.h>
 #include "GUIObject.h"
 #include <vector>
 
@@ -26,11 +26,11 @@ namespace GUISystem {
     class Window_System
     {
     public:
-#pragma mark Initialization Methods
+// Initialization Methods
         Window_System(std::pair<Zeni::Point2f, Zeni::Point2f> screen); //Initialize the system
         ~Window_System(); //Dealloc the system
         
-#pragma mark Context Methods
+// Context Methods
         
         void setCurrentContextToSelf(); //Short hand for calling setCurrentContext(getContext())
         void setCurrentContext(Context* newContext); //Set the current context to the given one
@@ -40,7 +40,7 @@ namespace GUISystem {
 		
 		void createNewCurrentContext();
         
-#pragma mark GUIObject Methods
+// GUIObject Methods
         
         void addObject(GUIObject *object); //Add an object to this instance of the window system's context (whether that is the current one or not) context
         void removeObject(GUIObject *object); //Remove an object by its unique internal ID
@@ -50,7 +50,7 @@ namespace GUISystem {
 		
 		void moveObjectToForeground(GUIObject *object);
         
-#pragma mark Render Methods
+// Render Methods
         
         void renderObject(GUIObject *object); //Render just the single given object
         
@@ -61,7 +61,7 @@ namespace GUISystem {
 		
 		static void renderCurrentContext();
         
-#pragma mark Widget Methods
+// Widget Methods
 		
 		void on_key(const SDL_KeyboardEvent &event);
 		void on_mouse_button(const SDL_MouseButtonEvent &event);

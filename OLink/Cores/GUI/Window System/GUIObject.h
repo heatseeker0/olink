@@ -8,7 +8,7 @@
 #ifndef GUIOBJECT
 #define GUIOBJECT 1
 
-#include "zenilib.h"
+#include <zenilib.h>
 #include <string>
 
 namespace GUISystem {
@@ -21,15 +21,19 @@ namespace GUISystem {
     public:
 #define GUIObject_T 0
 		
-#pragma mark Initialization Methods
+// Initialization Methods
         GUIObject(Zeni::Point2f coord, Zeni::Point2f Size); //Initialize the object with the coordinates coord
         ~GUIObject();
         
-#pragma mark Getters & Setters
+// Getters & Setters
         
         virtual Zeni::Point2f getCoordinates(); //Get the coord variable
+#ifndef _WINDOWS
         virtual void setCoordinates(Zeni::Point2f UpperLeft) __attribute__ ((deprecated)); //Set the coord variable.  You should probably use moveTo for more clarity but it's there as a generic setter
-        
+#else
+		__declspec(deprecated) virtual void setCoordinates(Zeni::Point2f UpperLeft);
+#endif
+
 		virtual Zeni::Point2f getSize() { return this->Size; }
 		virtual void setSize(Zeni::Point2f Size) { this->Size = Size; }
 		
@@ -40,18 +44,18 @@ namespace GUISystem {
 		
 		virtual int getType() { return GUIObject_T; }
         
-#pragma mark movement methods
+// movement methods
         
         virtual void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
         virtual void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
         
-#pragma mark render methods
+// render methods
         
         virtual void renderObject() = 0; //Every sub class needs to have a render method!
         virtual void renderAt(Zeni::Point2f UpperLeft) = 0; //Render method to render at a specific point, used for adjusting if for example the object is in a window	
 		virtual Zeni::Widget *getWidget() = 0;
 		
-#pragma mark Comparison Operators
+// Comparison Operators
 		
 		bool operator ==(const GUIObject& b) const; 
 		bool operator !=(const GUIObject& b) const;	

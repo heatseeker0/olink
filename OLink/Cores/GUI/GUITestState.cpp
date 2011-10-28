@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "GUITestState.h"
 
 #include "Window System/Button.h"
@@ -51,27 +53,9 @@ imageLabel("ClickedImageDemo", Zeni::Point2f(175.0f, 85.0f), Zeni::Point2f(50.0f
 	
 	screen.addObject(textImageButtonToAdd);
 	
-	Zeni::Color colors[2];
-	colors[0] = Zeni::get_Colors()["blue"];
-	colors[1] = Zeni::get_Colors()["cyan"];
-	colors[2] = Zeni::get_Colors()["red"];
+	screen.addObject(&window);
 	
-	Zeni::Color textColors[2];
-	textColors[0] = Zeni::get_Colors()["blue"];
-	textColors[1] = Zeni::get_Colors()["cyan"];
-	textColors[2] = Zeni::get_Colors()["red"];
-	
-	colorButtonToAdd = new Button(colors, Zeni::Point2f(50.0f, 235.0f), Zeni::Point2f(50.0f, 50.0f), this);
-	Zeni::Point2i pos(0, 0);
-	colorButtonToAdd->getWidget()->on_mouse_motion(pos);
-	screen.addObject(colorButtonToAdd);
-	
-	textColorButtonToAdd = new Button("Test!", textColors, Zeni::Point2f(50.0f, 310.0f), Zeni::Point2f(50.0f, 50.0f), this);
-	//screen.addObject(textColorButtonToAdd);
-	
-	//screen.addObject(&window);
-	
-	//screen.addObject(&textureWindow);
+	screen.addObject(&textureWindow);
 	
 	screen.setCurrentContextToSelf();
 }
@@ -83,18 +67,11 @@ GUITestState::~GUITestState()
 	
 	if (textImageButtonToAdd != NULL)
 		delete textImageButtonToAdd;
-	
-	if (colorButtonToAdd != NULL)
-		delete colorButtonToAdd;
-	
-	if (textColorButtonToAdd != NULL)
-		delete textColorButtonToAdd;
 }
 
 void GUITestState::render()
 {
 	Video &vr = get_Video();
-	Zeni::Window &window = get_Window();
 	
 	vr.set_2d(std::pair<Zeni::Point2f, Zeni::Point2f>(Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(window.get_width(), window.get_height())), true);
 		
@@ -116,22 +93,22 @@ void GUITestState::button_accept(Button *whichButton)
 	buttonToAdd.setTitle(ss.str());
 }
 
-void GUITestState::checkbox_accept(CheckBox *checkBox)
+void GUITestState::checkbox_accept(CheckBox *)
 {
 	
 }
 
-void GUITestState::slider_slide(GUISystem::Slider *slider)
+void GUITestState::slider_slide(GUISystem::Slider *)
 {
 	
 }
 
-void GUITestState::slider_accept(GUISystem::Slider *slider)
+void GUITestState::slider_accept(GUISystem::Slider *)
 {
 	
 }
 
-void GUITestState::radiobutton_accept(RadioButton *radioButton)
+void GUITestState::radiobutton_accept(RadioButton *)
 {
 	
 }

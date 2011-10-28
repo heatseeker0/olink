@@ -34,12 +34,12 @@ namespace GUISystem {
 		
 		int getType() { return RadioButton_Set_T; };
         
-#pragma mark render methods
+// render methods
         
         void renderObject(); //Every sub class needs to have a render method!
         void renderAt(Zeni::Point2f UpperLeft); //Render method to render at a specific point, used for adjusting if for example the object is in a window
 		
-#pragma mark Widget methods
+// Widget methods
 		
 		void on_mouse_button(const Zeni::Point2i &pos, const bool &down, const int &button);
 		void on_mouse_motion(const Zeni::Point2i &pos);
@@ -50,7 +50,7 @@ namespace GUISystem {
 	public:
 		class RadioButton_Delegate {
 		public:
-			virtual void radiobutton_accept(RadioButton *radioButton) {};
+			virtual void radiobutton_accept(RadioButton *) {};
 		};
 		
 		RadioButton_Delegate *delegate;
@@ -59,13 +59,13 @@ namespace GUISystem {
 	public:
 #define RadioButton_T 3
 		
-#pragma mark Initialization
+// Initialization
 		RadioButton(RadioButton_Set &radioButton_Set,
 					const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size,
 					RadioButton_Delegate *delegate);
 		~RadioButton();
 		
-#pragma mark CheckBox Delegate methods
+// CheckBox Delegate methods
 		
 		void checkbox_accept(CheckBox *checkBox);
 		
