@@ -9,7 +9,7 @@
 #ifndef Window_H
 #define Window_H
 
-#include "zenilib.h"
+#include <zenilib.h>
 #include "GUIObject.h"
 #include "Window System.h"
 #include "Button.h"
@@ -27,12 +27,12 @@ namespace GUISystem {
 		class Window_Delegate
 		{
 		public:
-			virtual void window_close(Window *window) {};
-			virtual void window_resize(Window *window) {};
-			virtual void window_minimize(Window *window) {};
-			virtual void window_maximize(Window *window) {};
-			virtual void window_unminimize(Window *window) {};
-			virtual void window_unmaximize(Window *window) {};
+			virtual void window_close(Window *) {};
+			virtual void window_resize(Window *) {};
+			virtual void window_minimize(Window *) {};
+			virtual void window_maximize(Window *) {};
+			virtual void window_unminimize(Window *) {};
+			virtual void window_unmaximize(Window *) {};
 		};
 		
 		class V_WindowBar
@@ -109,7 +109,7 @@ namespace GUISystem {
 				
 		bool resizingWindow;
 		
-#pragma mark Resize/Maximize Stuff
+// Resize/Maximize Stuff
 		Zeni::Point2f OriginalSize;
 		
 		Zeni::Point2f OldUpperLeft;

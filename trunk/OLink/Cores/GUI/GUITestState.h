@@ -9,7 +9,7 @@
 #ifndef GUITestState_H
 #define GUITestState_H
 
-#include "zenilib.h"
+#include <zenilib.h>
 #include "Window System/Window System.h"
 #include "Window System/Button.h"
 #include "Window System/TextLabel.h"
@@ -36,23 +36,23 @@ public:
 	void on_key(const SDL_KeyboardEvent &event);
 	void perform_logic();
 	
-#pragma mark Button Delegate Methods
+// Button Delegate Methods
 	void button_accept(Button *whichButton);
 	
-#pragma mark CheckBox Delegate Methods
+// CheckBox Delegate Methods
 	
 	void checkbox_accept(CheckBox *checkBox);
 	
-#pragma mark Slider Delegate Methods
+// Slider Delegate Methods
 	
 	void slider_slide(GUISystem::Slider *slider);
 	void slider_accept(GUISystem::Slider *slider);
 	
-#pragma mark RadioButton Delegate Methods
+// RadioButton Delegate Methods
 	
 	void radiobutton_accept(RadioButton *radioButton);
 	
-#pragma mark Window Delegate Methods
+// Window Delegate Methods
 	
 	void window_close(GUISystem::Window *window);
 
@@ -62,8 +62,6 @@ private:
 	GUISystem::Button *imageButtonToAdd;
 	GUISystem::Button *imageButtonToAddBig;
 	GUISystem::Button *textImageButtonToAdd;
-	GUISystem::Button *colorButtonToAdd;
-	GUISystem::Button *textColorButtonToAdd;
 	GUISystem::TextLabel label;
 	GUISystem::CheckBox checkBox;
 	GUISystem::Slider slider;

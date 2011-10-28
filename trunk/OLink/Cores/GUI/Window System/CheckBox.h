@@ -9,7 +9,7 @@
 #ifndef CheckBox_H
 #define CheckBox_H 1
 
-#include "zenilib.h"
+#include <zenilib.h>
 
 #include "GUIObject.h"
 
@@ -21,14 +21,14 @@ namespace GUISystem {
 	public:
 		class CheckBox_Delegate {
 		public:
-			virtual void checkbox_accept(CheckBox *checkBox) {};
+			virtual void checkbox_accept(CheckBox *) {};
 			
-			virtual void checkbox_click(CheckBox *checkBox) {};
+			virtual void checkbox_click(CheckBox *) {};
 			
-			virtual void checkbox_stray(CheckBox *checkBox) {};
-			virtual void checkbox_unstray(CheckBox *checkBox) {};
+			virtual void checkbox_stray(CheckBox *) {};
+			virtual void checkbox_unstray(CheckBox *) {};
 			
-			virtual void checkbox_reject(CheckBox *checkBox) {};
+			virtual void checkbox_reject(CheckBox *) {};
 		};
 		
 	private:
@@ -92,22 +92,22 @@ namespace GUISystem {
 	public:
 #define CheckBox_T 4
 		
-#pragma mark Initialization
+// Initialization
         CheckBox(Zeni::Point2f UpperLeft, Zeni::Point2f Size, CheckBox_Delegate *delegate, bool radioButton = false); //Initialize the text label with a Title and a point to draw from
         ~CheckBox(); //Dealloc
         
-#pragma mark Getters & Setters
+// Getters & Setters
         bool isChecked(); //Is the check box checked?
 		void setChecked(bool checked);
 		
 		int getType() { return CheckBox_T; };
 		
-#pragma mark movement methods
+// movement methods
         
         void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
         void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
         
-#pragma Render methods
+// Render methods
         void renderAt(Zeni::Point2f UpperLeft); //Render at the point
 		void renderObject();
 		

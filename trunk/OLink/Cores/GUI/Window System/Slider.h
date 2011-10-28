@@ -6,7 +6,7 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
-#include "zenilib.h"
+#include <zenilib.h>
 #include "GUIObject.h"
 
 namespace GUISystem {
@@ -17,8 +17,8 @@ namespace GUISystem {
 		class Slider_Delegate
 		{
 		public:
-			virtual void slider_slide(GUISystem::Slider *slider) {};
-			virtual void slider_accept(GUISystem::Slider *slider) {};
+			virtual void slider_slide(GUISystem::Slider *) {};
+			virtual void slider_accept(GUISystem::Slider *) {};
 		};
 		
 	private:
@@ -54,11 +54,11 @@ namespace GUISystem {
 	public:
 #define Slider_T 1
 		
-#pragma mark Initialization
+// Initialization
         Slider(Zeni::Point2f endpointa, Zeni::Point2f endpointb, float radius, Slider_Delegate *delegate); //Initialize the button with a Title and a point to draw from
         ~Slider(); //Dealloc
         
-#pragma mark Getters & Setters
+// Getters & Setters
         void setPosition(const float position);
         
         void setDelegate(Slider_Delegate *delegate);
@@ -67,12 +67,12 @@ namespace GUISystem {
 
 		int getType() { return Slider_T; }
 		
-#pragma mark movement methods
+// movement methods
 		
 		void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
         void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
         
-#pragma mark render methods
+// render methods
         
         void renderObject(); //Every sub class needs to have a render method!
         void renderAt(Zeni::Point2f UpperLeft); //Render method to render at a specific point, used for adjusting if for example the object is in a window	

@@ -6,6 +6,8 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "RadioButton.h"
 
 namespace GUISystem {
@@ -58,26 +60,26 @@ namespace GUISystem {
 		}
 	}
 	
-#pragma mark render methods
+// render methods
 	
 	void RadioButton_Set::renderObject()
 	{
 	}
 	
-	void RadioButton_Set::renderAt(Zeni::Point2f UpperLeft)
+	void RadioButton_Set::renderAt(Zeni::Point2f )
 	{
 	}
 	
-#pragma mark Widget methods
+// Widget methods
 	
-	void RadioButton_Set::on_mouse_button(const Zeni::Point2i &pos, const bool &down, const int &button) {}
-	void RadioButton_Set::on_mouse_motion(const Zeni::Point2i &pos) {}
+	void RadioButton_Set::on_mouse_button(const Zeni::Point2i &, const bool &, const int &) {}
+	void RadioButton_Set::on_mouse_motion(const Zeni::Point2i &) {}
 	
-#pragma mark Initialization
+// Initialization
 	RadioButton::RadioButton(RadioButton_Set &newRadioButton_Set,
 				const Zeni::Point2f &UpperLeft, const Zeni::Point2f &Size,
 				RadioButton_Delegate *newDelegate)
-	: CheckBox::CheckBox(UpperLeft, Size, this, true),
+	: CheckBox(UpperLeft, Size, this, true),
 	radioButton_Set(newRadioButton_Set)
 	{
 		newRadioButton_Set.lendRadioButton(*this);
@@ -88,19 +90,19 @@ namespace GUISystem {
 	{
 	}
 	
-#pragma mark CheckBox Delegate methods
+// CheckBox Delegate methods
 	
-	void RadioButton::checkbox_accept(CheckBox *checkBox)
+	void RadioButton::checkbox_accept(CheckBox *)
 	{
 		radioButton_Set.accept(*this);
 		
 		this->delegate->radiobutton_accept(this);
 	}
 	
-	void RadioButton::checkbox_click(CheckBox *checkBox) {}
+	void RadioButton::checkbox_click(CheckBox *) {}
 	
-	void RadioButton::checkbox_stray(CheckBox *checkBox) {}
-	void RadioButton::checkbox_unstray(CheckBox *checkBox) {}
+	void RadioButton::checkbox_stray(CheckBox *) {}
+	void RadioButton::checkbox_unstray(CheckBox *) {}
 	
-	void RadioButton::checkbox_reject(CheckBox *checkBox) {}
+	void RadioButton::checkbox_reject(CheckBox *) {}
 }

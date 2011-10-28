@@ -6,6 +6,8 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "ImageLabel.h"
 
 namespace GUISystem {
@@ -41,7 +43,7 @@ namespace GUISystem {
 		this->internalImageLabel.set_lower_right(Zeni::Point2f(UpperLeft.x + this->getSize().x, UpperLeft.y + this->getSize().y));
 	}
 	
-#pragma Render methods
+// Render methods
 	void ImageLabel::renderAt(Zeni::Point2f UpperLeft)
 	{
 		Zeni::Point2f OldUpperLeft = this->getCoordinates();

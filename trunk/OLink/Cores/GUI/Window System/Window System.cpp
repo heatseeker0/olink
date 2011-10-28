@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "Window System.h"
 
 #include <iostream>
@@ -14,7 +16,7 @@ namespace GUISystem {
 	
 	Context *Window_System::currentContext;
     
-#pragma mark Initialization Methods
+// Initialization Methods
     Window_System::Window_System(std::pair<Zeni::Point2f, Zeni::Point2f> screen)
     {
 		this->screenSize = screen;
@@ -39,7 +41,7 @@ namespace GUISystem {
         delete m_Context;
     }
     
-#pragma mark Context Methods
+// Context Methods
     
     void Window_System::setCurrentContextToSelf()
     {
@@ -74,11 +76,11 @@ namespace GUISystem {
 		m_Context = newCurrentContext;
 	}
     
-#pragma mark GUIObject Methods
+// GUIObject Methods
     
     void Window_System::addObject(GUIObject *object)
     {
-		for (int i = 0;i < m_Context->objects.size();i++)
+		for (unsigned int i = 0;i < m_Context->objects.size();i++)
         {
             if (m_Context->objects[i]->getUID() == object->getUID())
 				return;
@@ -90,7 +92,7 @@ namespace GUISystem {
     
     void Window_System::removeObject(GUIObject *object)
     {
-        for (int i = 0;i < m_Context->objects.size();i++)
+        for (unsigned int i = 0;i < m_Context->objects.size();i++)
         {
             if (m_Context->objects[i]->getUID() == object->getUID())
             {
@@ -103,7 +105,7 @@ namespace GUISystem {
     
     void Window_System::addObject(Context *contextToAddTo, GUIObject *object)
     {
-		for (int i = 0;i < contextToAddTo->objects.size();i++)
+		for (unsigned int i = 0;i < contextToAddTo->objects.size();i++)
         {
             if (contextToAddTo->objects[i]->getUID() == object->getUID())
 				return;
@@ -115,7 +117,7 @@ namespace GUISystem {
     
     void Window_System::removeObject(Context *contextToRemoveFrom, GUIObject *object)
     {
-        for (int i = 0;i < contextToRemoveFrom->objects.size();i++)
+        for (unsigned int i = 0;i < contextToRemoveFrom->objects.size();i++)
         {
             if (contextToRemoveFrom->objects[i]->getUID() == object->getUID())
             {
@@ -131,7 +133,7 @@ namespace GUISystem {
 		this->addObject(object);
 	}
     
-#pragma mark Render Methods
+// Render Methods
     
     void Window_System::renderObject(GUIObject *object)
     {
@@ -147,7 +149,7 @@ namespace GUISystem {
 		Zeni::get_Video().set_2d_view(std::make_pair(Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(Window_System::currentContext->LowerRight.x - Window_System::currentContext->UpperLeft.x, Window_System::currentContext->LowerRight.y - Window_System::currentContext->UpperLeft.y)),
 									  std::make_pair(Window_System::currentContext->UpperLeft, Window_System::currentContext->LowerRight));
 		
-        for (int i = 0;i < Window_System::currentContext->objects.size();i++)
+        for (unsigned int i = 0;i < Window_System::currentContext->objects.size();i++)
             renderObject(Window_System::currentContext->objects[i]);
 		
 		setCurrentContext(oldCurrentContext);
@@ -170,7 +172,7 @@ namespace GUISystem {
 		Zeni::get_Video().set_2d_view(std::make_pair(Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(800.0f, 600.0f)),
 									  std::make_pair(Window_System::currentContext->UpperLeft, Window_System::currentContext->LowerRight));
 		
-        for (int i = 0;i < contextToRender->objects.size();i++)
+        for (unsigned int i = 0;i < contextToRender->objects.size();i++)
             renderObject(contextToRender->objects[i]);
 		
 		Window_System::currentContext = oldContext;
@@ -187,11 +189,11 @@ namespace GUISystem {
 		Zeni::get_Video().set_2d_view(std::make_pair(Zeni::Point2f(0.0f, 0.0f), Zeni::Point2f(800.0f, 600.0f)),
 									  std::make_pair(Window_System::currentContext->UpperLeft, Window_System::currentContext->LowerRight));
 		
-        for (int i = 0;i < Window_System::currentContext->objects.size();i++)
+        for (unsigned int i = 0;i < Window_System::currentContext->objects.size();i++)
 			Window_System::currentContext->objects[i]->renderObject();
 	}
 	
-#pragma mark Widget Methods
+// Widget Methods
 	
 	void Window_System::on_key(const SDL_KeyboardEvent &event)
 	{

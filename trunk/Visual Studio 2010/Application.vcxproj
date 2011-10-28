@@ -197,7 +197,7 @@
     </CustomBuildStep>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;..\include_win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../OLink/Cores;../OLink/Content;..\include;..\include_win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NOMINMAX;WIN32_LEAN_AND_MEAN;ZENI_DLL=__declspec(dllimport);ZENI_EXT=extern;ZENI_AUDIO_DLL=__declspec(dllimport);ZENI_AUDIO_EXT=extern;ZENI_CORE_DLL=__declspec(dllimport);ZENI_CORE_EXT=extern;ZENI_GRAPHICS_DLL=__declspec(dllimport);ZENI_GRAPHICS_EXT=extern;DISABLE_CG;ZENI_NET_DLL=__declspec(dllimport);ZENI_NET_EXT=extern;ZENI_REST_DLL=__declspec(dllimport);ZENI_REST_EXT=extern;_DEBUG;_WINDOWS;_CRTDBG_MAP_ALLOC;TEST_NASTY_CONDITIONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessKeepComments>false</PreprocessKeepComments>
       <MinimalRebuild>false</MinimalRebuild>
@@ -630,6 +630,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\OLink\Cores\GUI\GUITestState.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\Button.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\CheckBox.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\GUIObject.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\ImageLabel.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\RadioButton.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\Slider.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\TextLabel.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\Window System.cpp" />
+    <ClCompile Include="..\OLink\Cores\GUI\Window System\Window.cpp" />
     <ClCompile Include="..\src\application.cxx">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug SCU|Win32'">
       </PrecompiledHeader>
@@ -674,6 +684,16 @@
     <ClInclude Include="..\include\zeni_graphics.h" />
     <ClInclude Include="..\include\zeni_net.h" />
     <ClInclude Include="..\include\zeni_rest.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\GUITestState.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\Button.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\CheckBox.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\GUIObject.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\ImageLabel.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\RadioButton.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\Slider.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\TextLabel.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\Window System.h" />
+    <ClInclude Include="..\OLink\Cores\GUI\Window System\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\config\colors.xml" />

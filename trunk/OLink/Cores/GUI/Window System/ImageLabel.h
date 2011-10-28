@@ -9,7 +9,7 @@
 #ifndef ImageLabel_H
 #define ImageLabel_H 1
 
-#include "zenilib.h"
+#include <zenilib.h>
 #include "GUIObject.h"
 
 namespace GUISystem {
@@ -47,10 +47,10 @@ namespace GUISystem {
 			void on_key(const SDL_keysym & /*keysym*/, const bool & /*down*/)
 			{}
 			
-			void on_mouse_button(const Zeni::Point2i &pos, const bool &down, const int &button)
+			void on_mouse_button(const Zeni::Point2i &, const bool &, const int &)
 			{}
 			
-			void on_mouse_motion(const Zeni::Point2i &pos)
+			void on_mouse_motion(const Zeni::Point2i &)
 			{}
 			
 			void perform_logic()
@@ -72,7 +72,7 @@ namespace GUISystem {
 		
 		int getType() { return ImageLabel_T; };
         
-#pragma Render methods
+// Render methods
         void renderAt(Zeni::Point2f UpperLeft); //Render at the point
 		void renderObject();
 		

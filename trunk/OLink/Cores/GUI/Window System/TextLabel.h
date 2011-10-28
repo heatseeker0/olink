@@ -9,7 +9,7 @@
 #ifndef TextLabel_H
 #define TextLabel_H 1
 
-#include "zenilib.h"
+#include <zenilib.h>
 
 #include "GUIObject.h"
 
@@ -36,22 +36,22 @@ namespace GUISystem {
 	public:
 #define TextLabel_T 6
 		
-#pragma mark Initialization
+// Initialization
         TextLabel(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size); //Initialize the text label with a Title and a point to draw from
         ~TextLabel(); //Dealloc
         
-#pragma mark Getters & Setters
+// Getters & Setters
         std::string getTitle(); //Get the title of the text label
         void setTitle(std::string title); //Set the title of the text label
 		
 		int getType() { return TextLabel_T; };
 		
-#pragma mark movement methods
+// movement methods
         
         void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
         void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this
         
-#pragma Render methods
+// Render methods
         void renderAt(Zeni::Point2f UpperLeft); //Render at the point
 		void renderObject();
 		

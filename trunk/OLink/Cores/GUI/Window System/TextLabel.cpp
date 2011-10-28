@@ -6,11 +6,13 @@
 //  Copyright 2011 OLink. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "TextLabel.h"
 
 namespace GUISystem {
 	
-#pragma mark Initialization
+// Initialization
 	TextLabel::TextLabel(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
 	: GUIObject(UpperLeft, Size),
 	internalTextBox(title, UpperLeft, Size)
@@ -22,7 +24,7 @@ namespace GUISystem {
 		
 	}
 	
-#pragma mark Getters & Setters
+// Getters & Setters
 	std::string TextLabel::getTitle()
 	{
 		return title;
@@ -34,7 +36,7 @@ namespace GUISystem {
 		this->title = title;
 	}
 	
-#pragma mark movement methods
+// movement methods
 	
 	void TextLabel::transform(Zeni::Point2f UpperLeft)
 	{
@@ -52,7 +54,7 @@ namespace GUISystem {
 		this->internalTextBox.set_lower_right(Zeni::Point2f(UpperLeft.x + this->getSize().x, UpperLeft.y + this->getSize().y));
 	}
 	
-#pragma Render methods
+// Render methods
 	void TextLabel::renderAt(Zeni::Point2f UpperLeft)
 	{
 		Zeni::Point2f previousCoords = this->getCoordinates();

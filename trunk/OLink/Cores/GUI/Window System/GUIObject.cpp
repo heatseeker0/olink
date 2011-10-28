@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#include <zenilib.h>
+
 #include "GUIObject.h"
 
 #include <time.h>
@@ -14,7 +16,7 @@
 
 namespace GUISystem {
     
-#pragma mark Initialization Methods
+// Initialization Methods
 
     GUIObject::GUIObject(Zeni::Point2f coord, Zeni::Point2f Size) //Initialize the object with the coordinates coord
     : m_coord(coord)
@@ -34,14 +36,14 @@ namespace GUISystem {
 		windowSystem = NULL;
 		
 		this->Size = Size;
-    }
+	}
     
     GUIObject::~GUIObject()
     {
         //No pointers = no dealloc necesary from our view
     }
     
-#pragma mark Getters & Setters
+// Getters & Setters
     
     Zeni::Point2f GUIObject::getCoordinates()
     {
@@ -60,7 +62,7 @@ namespace GUISystem {
         return m_uniqueIdentifier;
     }
     
-#pragma mark movement methods
+// movement methods
 
     void GUIObject::transform(Zeni::Point2f coordToMoveBy)
     {
@@ -75,7 +77,7 @@ namespace GUISystem {
         m_coord = coordToMoveTo;
     }
 	
-#pragma mark Comparison Operators
+// Comparison Operators
 	
 	bool GUIObject::operator ==(const GUIObject& b) const
 	{
