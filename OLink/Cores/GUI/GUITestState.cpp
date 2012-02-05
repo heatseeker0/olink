@@ -40,7 +40,7 @@ imageLabel("ClickedImageDemo", Zeni::Point2f(175.0f, 85.0f), Zeni::Point2f(50.0f
 	
 	imageButtonToAdd = NULL;
 	
-	std::map<std::string, std::string> map;
+	std::map<Zeni::String, Zeni::String> map;
 	map.insert(std::make_pair(BaseImage, "BaseImageDemo"));
 	map.insert(std::make_pair(HoverImage, "HoverImageDemo"));
 	map.insert(std::make_pair(ClickedImage, "ClickedImageDemo"));
@@ -90,7 +90,9 @@ void GUITestState::button_accept(Button *whichButton)
 	std::stringstream ss;
 	ss << clicks;
 	
-	buttonToAdd.setTitle(ss.str());
+	Zeni::String title(ss.str());
+
+	buttonToAdd.setTitle(title);
 }
 
 void GUITestState::checkbox_accept(CheckBox *)

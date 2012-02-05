@@ -12,7 +12,7 @@
 
 namespace GUISystem {
 	
-	ImageLabel::ImageLabel(std::string image, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
+	ImageLabel::ImageLabel(Zeni::String image, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
 	: GUIObject(UpperLeft, Size),
 	internalImageLabel(image, UpperLeft, Size)
 	{
@@ -22,7 +22,7 @@ namespace GUISystem {
 	{
 	}
 	
-	void ImageLabel::setImage(std::string image)
+	void ImageLabel::setImage(Zeni::String image)
 	{
 		this->internalImageLabel.setImage(image);
 	}

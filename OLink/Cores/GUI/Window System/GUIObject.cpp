@@ -57,7 +57,7 @@ namespace GUISystem {
         m_coord = newCoords;
     }
     
-    std::string GUIObject::getUID() const
+    Zeni::String GUIObject::getUID() const
     {
         return m_uniqueIdentifier;
     }

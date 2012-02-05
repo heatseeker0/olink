@@ -1,3 +1,4 @@
+
 //
 //  ImageLabel.h
 //  Application
@@ -23,12 +24,12 @@ namespace GUISystem {
 			Internal_ImageLabel(const Internal_ImageLabel &);
 			Internal_ImageLabel & operator=(const Internal_ImageLabel &);
 			
-			std::string image;
+			Zeni::String image;
 			
 			Zeni::Widget_Renderer_Texture *imageRenderer;
 			
 		public:
-			Internal_ImageLabel(std::string image, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
+			Internal_ImageLabel(Zeni::String image, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
 			: Widget_Rectangle(UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y))
 			{
 				this->image = image;
@@ -37,7 +38,7 @@ namespace GUISystem {
 				this->give_Renderer(this->imageRenderer);
 			}
 			
-			void setImage(std::string image)
+			void setImage(Zeni::String image)
 			{
 				this->image = image;
 				
@@ -62,10 +63,10 @@ namespace GUISystem {
 	public:
 #define ImageLabel_T 9
 		
-		ImageLabel(std::string image, Zeni::Point2f UpperLeft, Zeni::Point2f Size);
+		ImageLabel(Zeni::String image, Zeni::Point2f UpperLeft, Zeni::Point2f Size);
 		~ImageLabel();
 		
-		void setImage(std::string image);
+		void setImage(Zeni::String image);
 		
 		void transform(Zeni::Point2f UpperLeft); //Move the position by this amount        
         void moveTo(Zeni::Point2f UpperLeft); //Set the object's cords to this

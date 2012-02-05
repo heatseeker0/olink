@@ -6,7 +6,7 @@
 
 #include <zenilib.h>
 
-#include "GUITestState.h"
+#include "GUI/GUITestState.h"
 
 #if defined(_DEBUG) && defined(_WINDOWS)
 #define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -15,63 +15,6 @@
 
 using namespace std;
 using namespace Zeni;
-
-class Play_State : public Gamestate_Base {
-  Play_State(const Play_State &);
-  Play_State operator=(const Play_State &);
-
-public:
-  Play_State() {
-    set_pausable(true);
-  }
-
-private:
-  void on_push() {
-    //get_Window().mouse_grab(true);
-    get_Window().mouse_hide(true);
-  }
-
-  void on_pop() {
-    //get_Window().mouse_grab(false);
-    get_Window().mouse_hide(false);
-  }
-};
-
-class Instructions_State : public Widget_Gamestate {
-  Instructions_State(const Instructions_State &);
-  Instructions_State operator=(const Instructions_State &);
-
-public:
-  Instructions_State()
-    : Widget_Gamestate(make_pair(Point2f(0.0f, 0.0f), Point2f(800.0f, 600.0f)))
-  {
-  }
-
-private:
-  void on_key(const SDL_KeyboardEvent &event) {
-    if(event.keysym.sym == SDLK_ESCAPE && event.state == SDL_PRESSED)
-      get_Game().pop_state();
-  }
-
-  void render() {
-    Widget_Gamestate::render();
-
-    Zeni::Font &fr = get_Fonts()["title"];
-
-    fr.render_text(
-#if defined(_WINDOWS)
-                   "ALT+F4"
-#elif defined(_MACOSX)
-                   "Apple+Q"
-#else
-                   "Ctrl+Q"
-#endif
-                           " to Quit",
-                   Point2f(400.0f, 300.0f - 0.5f * fr.get_text_height()),
-                   get_Colors()["title_text"],
-                   ZENI_CENTER);
-  }
-};
 
 class Bootstrap {
   class Gamestate_One_Initializer : public Gamestate_Zero_Initializer {

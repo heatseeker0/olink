@@ -223,6 +223,7 @@
 		4D160092141424550003E69C /* CheckBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CheckBox.cpp; path = "../OLink/Cores/GUI/Window System/CheckBox.cpp"; sourceTree = SOURCE_ROOT; };
 		4D2DC8F714283F6200F23C2C /* ImageLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ImageLabel.cpp; path = "../OLink/Cores/GUI/Window System/ImageLabel.cpp"; sourceTree = SOURCE_ROOT; };
 		4D2DC8F914283F8000F23C2C /* ImageLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageLabel.h; path = "../OLink/Cores/GUI/Window System/ImageLabel.h"; sourceTree = SOURCE_ROOT; };
+		4D53026614DDDEC100CDB620 /* NetworkCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkCore.h; path = ../OLink/Cores/Networking/NetworkCore.h; sourceTree = "<group>"; };
 		4D74D2FE141F98CB003F832B /* colors.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = colors.xml; sourceTree = "<group>"; };
 		4D74D2FF141F98CB003F832B /* fonts.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fonts.xml; sourceTree = "<group>"; };
 		4D74D300141F98CB003F832B /* sounds.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sounds.xml; sourceTree = "<group>"; };
@@ -585,6 +586,7 @@
 		4DDBF1A514127855001A2671 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				4D53026614DDDEC100CDB620 /* NetworkCore.h */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -2052,6 +2054,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../OLink/Cores;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2070,6 +2073,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../OLink/Cores;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx10.6;
 			};
@@ -2106,7 +2110,10 @@
 					"ZENI_REST_EXT=\"\"",
 					_DEBUG,
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../include\"";
+				HEADER_SEARCH_PATHS = (
+					../OLink/Cores,
+					"\"$(SRCROOT)/../include\"",
+				);
 				INFOPLIST_FILE = "Application/Application-Info.plist";
 				PRODUCT_NAME = OLink;
 				SDKROOT = macosx;
@@ -2145,7 +2152,10 @@
 					"ZENI_REST_EXT=\"\"",
 					NDEBUG,
 				);
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../include\"";
+				HEADER_SEARCH_PATHS = (
+					../OLink/Cores,
+					"\"$(SRCROOT)/../include\"",
+				);
 				INFOPLIST_FILE = "Application/Application-Info.plist";
 				PRODUCT_NAME = OLink;
 				SDKROOT = macosx10.6;
