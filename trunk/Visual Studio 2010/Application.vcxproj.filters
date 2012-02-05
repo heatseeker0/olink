@@ -134,7 +134,7 @@
       <Filter>OLink\Cores\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\OLink\Cores\GUI\Window System\Window.h">
-      <Filter>OLink\Cores\GUI</Filter>
+      <Filter>OLink\Cores\GUI\Window System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

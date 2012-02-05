@@ -360,7 +360,7 @@ namespace GUISystem {
 	}
 	
 	Window_Bar::~Window_Bar()
-	{
+	{ 
 		delete closeButton;
 		delete minimizeButton;
 		delete maximizeButton;

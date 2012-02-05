@@ -89,7 +89,7 @@ namespace GUISystem {
 			
 			Button *button;
 			
-			std::map<std::string, std::string> images;
+			std::map<Zeni::String, Zeni::String> images;
 			
 			class Internal_TextureTextRenderer : public Zeni::Widget_Render_Function
 			{
@@ -141,7 +141,7 @@ namespace GUISystem {
 		public:
 			Delegate *delegate;
 			
-			Internal_TextImageButton(std::map<std::string, std::string> images, Zeni::String text, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate, Button *button)
+			Internal_TextImageButton(std::map<Zeni::String, Zeni::String> images, Zeni::String text, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate, Button *button)
 			: delegate(newDelegate),
 			Widget_Button(UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y))
 			{
@@ -163,7 +163,7 @@ namespace GUISystem {
 			
 			void setText(Zeni::String title) { this->textRenderer->text = title; } 
 			
-			void setImages(std::map<std::string, std::string> images) { this->images = images; }
+			void setImages(std::map<Zeni::String, Zeni::String> images) { this->images = images; }
 			
 			void on_hover() {
 				if (images.find(HoverImage) != images.end())
@@ -234,17 +234,17 @@ namespace GUISystem {
 		} ButtonType;
         
 // Initialization
-        Button(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *delegate); //Initialize the button with a Title and a point to draw from
-		Button(std::map<std::string, std::string> images, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *delegate); //Initialize the button with images and a point to draw from
-		Button(std::map<std::string, std::string> images, std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *delegate); //Initialize the button with images and a title and a point to draw from
+        Button(Zeni::String title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *delegate); //Initialize the button with a Title and a point to draw from
+		Button(std::map<Zeni::String, Zeni::String> images, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *delegate); //Initialize the button with images and a point to draw from
+		Button(std::map<Zeni::String, Zeni::String> images, Zeni::String title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *delegate); //Initialize the button with images and a title and a point to draw from
         ~Button(); //Dealloc
         
 // Getters & Setters
-        std::string getTitle(); //Get the title of the button
-        void setTitle(std::string title); //Set the title of the button
+        Zeni::String getTitle(); //Get the title of the button
+        void setTitle(Zeni::String title); //Set the title of the button
 		
-		std::map<std::string, std::string> getImages(); //Get the title of the button
-        void setImages(std::map<std::string, std::string> images); //Set the title of the button
+		std::map<Zeni::String, Zeni::String> getImages(); //Get the title of the button
+        void setImages(std::map<Zeni::String, Zeni::String> images); //Set the title of the button
 		
 		Zeni::Color* getColors();
 		void setColors(Zeni::Color colors[2]);
@@ -281,8 +281,8 @@ namespace GUISystem {
 		void renderObject();
 		
     private:
-        std::string title; //Title of the button
-		std::map<std::string, std::string> images; //Images of the button
+        Zeni::String title; //Title of the button
+		std::map<Zeni::String, Zeni::String> images; //Images of the button
 		
 		Zeni::Color colorsOfTheButton[2];
         

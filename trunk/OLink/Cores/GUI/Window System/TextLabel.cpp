@@ -13,7 +13,7 @@
 namespace GUISystem {
 	
 // Initialization
-	TextLabel::TextLabel(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
+	TextLabel::TextLabel(Zeni::String title, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
 	: GUIObject(UpperLeft, Size),
 	internalTextBox(title, UpperLeft, Size)
 	{
@@ -25,12 +25,12 @@ namespace GUISystem {
 	}
 	
 // Getters & Setters
-	std::string TextLabel::getTitle()
+	Zeni::String TextLabel::getTitle()
 	{
 		return title;
 	}
 	
-	void TextLabel::setTitle(std::string title)
+	void TextLabel::setTitle(Zeni::String title)
 	{
 		internalTextBox.set_text(Zeni::String(title));
 		this->title = title;

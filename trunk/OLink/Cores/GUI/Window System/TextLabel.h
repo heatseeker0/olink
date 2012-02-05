@@ -22,7 +22,7 @@ namespace GUISystem {
 			Internal_Text_Box & operator=(const Internal_Text_Box &);
 			
 		public:
-			Internal_Text_Box(const std::string &title, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
+			Internal_Text_Box(const Zeni::String &title, Zeni::Point2f UpperLeft, Zeni::Point2f Size)
 			: Text_Box(UpperLeft, Zeni::Point2f(UpperLeft.x + Size.x, UpperLeft.y + Size.y), Zeni::String("DefaultFont"), Zeni::String(title), Zeni::get_Colors()["DefaultTextLabelColor"])
 			{
 				give_BG_Renderer(new Zeni::Widget_Renderer_Color(Zeni::Color(0.0f, 0.0f, 0.0f, 0.0f)));
@@ -31,18 +31,18 @@ namespace GUISystem {
 		
 		Internal_Text_Box internalTextBox;
 		
-		std::string title;
+		Zeni::String title;
 				
 	public:
 #define TextLabel_T 6
 		
 // Initialization
-        TextLabel(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size); //Initialize the text label with a Title and a point to draw from
+        TextLabel(Zeni::String title, Zeni::Point2f UpperLeft, Zeni::Point2f Size); //Initialize the text label with a Title and a point to draw from
         ~TextLabel(); //Dealloc
         
 // Getters & Setters
-        std::string getTitle(); //Get the title of the text label
-        void setTitle(std::string title); //Set the title of the text label
+        Zeni::String getTitle(); //Get the title of the text label
+        void setTitle(Zeni::String title); //Set the title of the text label
 		
 		int getType() { return TextLabel_T; };
 		

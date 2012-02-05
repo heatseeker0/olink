@@ -37,7 +37,7 @@ namespace GUISystem {
 		virtual Zeni::Point2f getSize() { return this->Size; }
 		virtual void setSize(Zeni::Point2f Size) { this->Size = Size; }
 		
-        std::string getUID() const;
+        Zeni::String getUID() const;
 		
 		virtual void setWindowSystem(Window_System *windowSystem) { this->windowSystem = windowSystem; }
 		virtual Window_System *getWindowSystem() { return this->windowSystem; }
@@ -61,7 +61,7 @@ namespace GUISystem {
 		bool operator !=(const GUIObject& b) const;	
 		
     private:
-        std::string m_uniqueIdentifier; //Unique identifier to identify this object as unique. ( Unix timestamp when object was created + :randomnumber should be unique )
+        Zeni::String m_uniqueIdentifier; //Unique identifier to identify this object as unique. ( Unix timestamp when object was created + :randomnumber should be unique )
         
         Zeni::Point2f m_coord; //Coord of the object relative to the base cord (not necesarily the actual coord)
 		

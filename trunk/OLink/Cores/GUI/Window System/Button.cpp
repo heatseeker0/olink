@@ -14,15 +14,14 @@ namespace GUISystem {
 	
 // Initialization
 	
-    Button::Button(std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate)
+    Button::Button(Zeni::String title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate)
     : GUIObject(UpperLeft, Size)
     {
 		this->internalTextImageButton = NULL;
 		this->internalImageButton = NULL;
 		this->internalTextButton = NULL;
 		
-		Zeni::String zeniStringTitle(title);
-		this->internalTextButton = new Internal_TextButton(zeniStringTitle, UpperLeft, Size, newDelegate, this);
+		this->internalTextButton = new Internal_TextButton(title, UpperLeft, Size, newDelegate, this);
 		
         this->title = title;
 		
@@ -31,7 +30,7 @@ namespace GUISystem {
 		setSize(Size);
 	}
 	
-	Button::Button(std::map<std::string, std::string> images, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate)
+	Button::Button(std::map<Zeni::String, Zeni::String> images, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate)
 	: GUIObject(UpperLeft, Size)
 	{
 		this->internalTextImageButton = NULL;
@@ -48,7 +47,7 @@ namespace GUISystem {
 		setSize(Size);
 	}
 	
-	Button::Button(std::map<std::string, std::string> images, std::string title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate)
+	Button::Button(std::map<Zeni::String, Zeni::String> images, Zeni::String title, Zeni::Point2f UpperLeft, Zeni::Point2f Size, Delegate *newDelegate)
 	: GUIObject(UpperLeft, Size)
 	{
 		this->internalTextImageButton = NULL;
@@ -80,7 +79,7 @@ namespace GUISystem {
     
 // Getters & Setters
 	
-    std::string Button::getTitle()
+    Zeni::String Button::getTitle()
     {
 		if (internalTextButton == NULL && internalTextImageButton == NULL)
 			return "";
@@ -88,7 +87,7 @@ namespace GUISystem {
         return title;
     }
     
-    void Button::setTitle(std::string title)
+    void Button::setTitle(Zeni::String title)
     {
 		if (internalTextImageButton == NULL && internalTextButton == NULL)
 			return;
@@ -106,18 +105,18 @@ namespace GUISystem {
 		return this->colorsOfTheButton;
 	}
 	
-	std::map<std::string, std::string> Button::getImages()
+	std::map<Zeni::String, Zeni::String> Button::getImages()
 	{
 		if (internalTextButton != NULL)
 		{
-			std::map<std::string, std::string> map;
+			std::map<Zeni::String, Zeni::String> map;
 			return map;
 		}
 		
 		return images;
 	}
 	
-	void Button::setImages(std::map<std::string, std::string> images)
+	void Button::setImages(std::map<Zeni::String, Zeni::String> images)
 	{
 		if (internalTextButton != NULL)
 			return;
